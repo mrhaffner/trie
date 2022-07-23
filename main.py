@@ -3,9 +3,16 @@ from trie import Trie
 t = Trie()
 
 t.add("Apple")
+t.add("Apple")
 t.add("AppleOrchard")
+t.add("Doggo")
+# t.add("")
 
-if __name__ == "__main__":
+# test 
+
+
+def test_add_contains() -> None:
+    # assert False
     assert t.contains("Apple")
     assert not t.contains("Apples")
     assert not t.contains("App")
@@ -15,6 +22,29 @@ if __name__ == "__main__":
     assert not t.contains("AppleOrchards")
     assert not t.contains("AppleOrchar")
     assert not t.contains("ppleOrchar")
+    assert t.contains("Doggo")
 
-    print("All tests passed!")
+    print("Add and Contains tests passed!")
+
+
+def test_delete() -> None:
+    assert t.delete("AppleOrchard")
+    assert not t.contains("AppleOrchard")
+    assert not t.contains("AppleO")
+    assert not t.contains("Appl")
+    assert t.contains("Apple")
+    assert t.contains("Doggo")
+    assert not t.delete("Apples")
+    assert t.contains("Apple")
+    assert t.delete("Doggo")
+    assert not t.contains("Doggo")
+    assert t.contains("Apple")
+
+    print("Delete tests passed!")
+
+
+if __name__ == "__main__":
+    test_add_contains()
+    test_delete()
+
 

@@ -1,10 +1,8 @@
-SIZE_OF_ALPHABET = 26
-
 # equals method?
 class TrieNode:
     
-    def __init__(self):
-        self.edges = [None] * SIZE_OF_ALPHABET
+    def __init__(self, num_chars):
+        self.edges = [None] * num_chars
         self.is_leaf = False
 
 
@@ -14,10 +12,15 @@ class TrieNode:
     # would then want a method to create a node of correct char set
 class Trie:
     
-    def __init__(self):
-        self.root = TrieNode()
+    def __init__(self, num_chars):
+        self._num_chars = num_chars
+        self.root = self._create_node()
         
     
+    def _create_node(self):
+        return TrieNode(self._num_chars)
+
+
     def _letter_to_index(self, letter: str) -> int:
         # throw error if letter len is not right
         return ord(letter.lower()) - ord('a')
@@ -32,7 +35,7 @@ class Trie:
             idx = self._letter_to_index(char)
             
             if not cur_node.edges[idx]:
-                cur_node.edges[idx] = TrieNode()
+                cur_node.edges[idx] = self._create_node()
             
             cur_node = cur_node.edges[idx]
         

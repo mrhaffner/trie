@@ -1,14 +1,14 @@
 from trie import Trie
 
-t = Trie()
+SIZE_OF_CHAR_SET = 26
+
+t = Trie(SIZE_OF_CHAR_SET)
 
 t.add("Apple")
 t.add("Apple")
 t.add("AppleOrchard")
 t.add("Doggo")
-# t.add("")
-
-# test 
+t.add("")
 
 
 def test_add_contains() -> None:

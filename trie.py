@@ -6,8 +6,6 @@ class TrieNode:
         self.is_leaf = False
 
 
-
-
 # perhaps can take in/inherit char mapping + max char set
 # trie node would then need to take in variable char set
     # would then want a method to create a node of correct char set
@@ -82,3 +80,24 @@ class Trie:
             return True
 
         return False
+
+
+    def get_all_words(self, cur_node = None, word = "", words = []):
+        if cur_node is None:
+            cur_node = self.root
+
+        if cur_node.is_leaf and word != "":
+            words.append(word)
+
+        for i, node in enumerate(cur_node.edges):
+            if node:
+                self.get_all_words(node, word + self._index_to_letter(i), words)
+
+        return words
+        
+
+    def _index_to_letter(self, index: int) -> str:
+        # throw error if letter len is not right
+        if index == self._num_chars - 1:
+            return " "
+        return chr(index + ord('a'))

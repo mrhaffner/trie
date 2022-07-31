@@ -25,8 +25,11 @@ def test_add_contains() -> None:
     assert not t.contains("AppleOrchar")
     assert not t.contains("ppleOrchar")
     assert t.contains("Doggo")
-
     print("Add and Contains tests passed!")
+
+
+def test_get_all_words() -> None:
+    assert t.get_all_words() == ['apple', 'appleorchard', 'apple orchard', 'doggo']
 
 
 def test_delete() -> None:
@@ -47,6 +50,6 @@ def test_delete() -> None:
 
 if __name__ == "__main__":
     test_add_contains()
+    test_get_all_words()
     test_delete()
-
 

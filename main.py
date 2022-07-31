@@ -30,6 +30,15 @@ def test_add_contains() -> None:
 
 def test_get_all_words() -> None:
     assert t.get_all_words() == ['apple', 'appleorchard', 'apple orchard', 'doggo']
+    print("Get_all_words tests passed!")
+
+
+def test_get_suggestions() -> None:
+    assert t.get_suggestions("app") == ['apple', 'appleorchard', 'apple orchard']
+    assert t.get_suggestions("apple") == ['appleorchard', 'apple orchard']
+    assert t.get_suggestions("") == ['apple', 'appleorchard', 'apple orchard', 'doggo']
+    assert t.get_suggestions("Steve") == []
+    print("Get suggestions tests passed!")
 
 
 def test_delete() -> None:
@@ -44,12 +53,13 @@ def test_delete() -> None:
     assert t.delete("Doggo")
     assert not t.contains("Doggo")
     assert t.contains("Apple")
-
     print("Delete tests passed!")
 
 
 if __name__ == "__main__":
     test_add_contains()
     test_get_all_words()
+    test_get_suggestions()
+
     test_delete()
 

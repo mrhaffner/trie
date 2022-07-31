@@ -82,9 +82,32 @@ class Trie:
         return False
 
 
-    def get_all_words(self, cur_node = None, word = "", words = []):
+    def get_suggestions(self, word):
+        # handle empty word?
+        cur_node = self.root
+
+        for char in word:
+            idx = self._letter_to_index(char)
+            cur_node = cur_node.edges[idx]
+            
+            # no suggestions if trie does not contains full word
+            if cur_node is None:
+                return []
+            
+        # get all subtrees
+        suffixes = self.get_all_words(cur_node)
+        # create new array where each item is all subtrees added to word
+        suggestions = [word + suffix for suffix in suffixes]
+
+        return suggestions
+
+
+    def get_all_words(self, cur_node = None, word = "", words = None):
         if cur_node is None:
             cur_node = self.root
+
+        if words is None:
+            words = []
 
         if cur_node.is_leaf and word != "":
             words.append(word)

@@ -7,6 +7,7 @@ class TrieNode:
 
 
 
+
 # perhaps can take in/inherit char mapping + max char set
 # trie node would then need to take in variable char set
     # would then want a method to create a node of correct char set
@@ -23,6 +24,8 @@ class Trie:
 
     def _letter_to_index(self, letter: str) -> int:
         # throw error if letter len is not right
+        if letter == ' ':
+            return self._num_chars - 1
         return ord(letter.lower()) - ord('a')
     
     

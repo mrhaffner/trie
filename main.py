@@ -1,6 +1,6 @@
 from trie import Trie
 
-SIZE_OF_CHAR_SET = 26
+SIZE_OF_CHAR_SET = 27
 
 t = Trie(SIZE_OF_CHAR_SET)
 
@@ -9,6 +9,7 @@ t.add("Apple")
 t.add("AppleOrchard")
 t.add("Doggo")
 t.add("")
+t.add("Apple Orchard")
 
 
 def test_add_contains() -> None:
@@ -19,6 +20,7 @@ def test_add_contains() -> None:
     assert not t.contains("ple")
     assert not t.contains("ppl")
     assert t.contains("AppleOrchard")
+    assert t.contains("Apple Orchard")
     assert not t.contains("AppleOrchards")
     assert not t.contains("AppleOrchar")
     assert not t.contains("ppleOrchar")

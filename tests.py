@@ -1,8 +1,6 @@
 from trie import Trie
 
-SIZE_OF_CHAR_SET = 27
-
-t = Trie(SIZE_OF_CHAR_SET)
+t = Trie()
 
 t.add("Apple")
 t.add("Apple")
@@ -60,6 +58,5 @@ if __name__ == "__main__":
     test_add_contains()
     test_get_all_words()
     test_get_suggestions()
-
     test_delete()
 

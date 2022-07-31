@@ -1,4 +1,6 @@
 # equals method?
+SIZE_OF_CHAR_SET = 27
+
 class TrieNode:
     
     def __init__(self, num_chars):
@@ -11,8 +13,8 @@ class TrieNode:
     # would then want a method to create a node of correct char set
 class Trie:
     
-    def __init__(self, num_chars):
-        self._num_chars = num_chars
+    def __init__(self):
+        self._num_chars = SIZE_OF_CHAR_SET
         self.root = self._create_node()
         
     
@@ -28,6 +30,7 @@ class Trie:
     
     
     def add(self, word: str) -> bool:
+        # add multiple???
         # throw error if not a letter
         # do nothing if empty string
         cur_node = self.root 

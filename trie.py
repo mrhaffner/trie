@@ -7,6 +7,9 @@ class TrieNode:
         self.edges = [None] * num_chars
         self.is_leaf = False
 
+# max depth?
+# as a param?
+
 
 # perhaps can take in/inherit char mapping + max char set
 # trie node would then need to take in variable char set
@@ -112,7 +115,7 @@ class Trie:
         if words is None:
             words = []
 
-        if cur_node.is_leaf and word != "":
+        if cur_node.is_leaf:
             words.append(word)
 
         for i, node in enumerate(cur_node.edges):

@@ -1,3 +1,5 @@
+// needs an IIFE
+
 const testArr = ['Apple', 'AppleOrchard', 'Apple Orchard'];
 const testUri = 'http://127.0.0.1:5000/trie?prefix=';
 

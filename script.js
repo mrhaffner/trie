@@ -18,6 +18,8 @@ let suggestionsParent = document.getElementById('suggestions');
 // needs to handle error
 const updateSuggestions = (e) => {
   suggestionsParent.firstChild?.remove();
+  if (e.target.value == '') return;
+
   let ul = document.createElement('ul');
   suggestionsParent.append(ul);
   fetch(`${testUri}${e.target.value}`)
@@ -26,4 +28,4 @@ const updateSuggestions = (e) => {
     .then((nodes) => nodes.forEach((node) => ul.appendChild(node)));
 };
 
-input.addEventListener('change', updateSuggestions);
+input.addEventListener('input', updateSuggestions);

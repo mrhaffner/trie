@@ -1,4 +1,5 @@
 import json
+from flask_cors import CORS
 from flask import Flask, jsonify, request
 from trie import Trie
 
@@ -10,6 +11,7 @@ t.add("Doggo")
 t.add("Apple Orchard")
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
@@ -23,7 +25,6 @@ def query_trie():
     number = request.args.get("number")
     suggestions = t.get_suggestions(prefix)
     output = suggestions[:int(number)] if number else suggestions
-
     return jsonify(output)
 
 

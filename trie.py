@@ -33,6 +33,8 @@ class Trie:
     
     
     def add(self, word: str) -> bool:
+        if (not word):
+            return
         # add multiple???
         # throw error if not a letter
         # do nothing if empty string

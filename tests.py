@@ -33,7 +33,7 @@ def test_get_all_words() -> None:
 
 def test_get_suggestions() -> None:
     assert t.get_suggestions("app") == ['apple', 'appleorchard', 'apple orchard']
-    assert t.get_suggestions("apple") == ['appleorchard', 'apple orchard']
+    assert t.get_suggestions("apple") == ['apple', 'appleorchard', 'apple orchard']
     assert t.get_suggestions("") == ['apple', 'appleorchard', 'apple orchard', 'doggo']
     assert t.get_suggestions("Steve") == []
     print("Get suggestions tests passed!")

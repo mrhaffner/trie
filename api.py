@@ -11,7 +11,7 @@ with open("search_terms.json", "r") as f:
     terms = json.loads(f.read())
     for term in terms:
         t.add(term["term"])
-        
+
 
 app = Flask(__name__)
 CORS(app)
@@ -25,9 +25,9 @@ def index():
 @app.route("/trie", methods=["GET"])
 def query_trie():
     prefix = urllib.parse.unquote(request.args.get("prefix"))
-    number = request.args.get("number")
+    limit = request.args.get("limit")
     suggestions = t.get_suggestions(prefix)
-    output = suggestions[:int(number)] if number else suggestions
+    output = suggestions[:int(limit)] if limit else suggestions
     return jsonify(output)
 
 

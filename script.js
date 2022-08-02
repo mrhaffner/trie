@@ -1,6 +1,6 @@
 // needs an IIFE
 
-const testUri = 'http://127.0.0.1:5000/trie?prefix=';
+const testUri = 'http://127.0.0.1:5000/trie?limit=10&prefix=';
 
 const arrayToSuggestionsLIs = (suggestions) => {
   return suggestions.map((suggestion) => {

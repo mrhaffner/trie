@@ -18,9 +18,20 @@ let suggestionsParent = document.getElementById('suggestions');
 // should not make requests if there are character(s) and already no suggestions
 // add words
 
+const hideSuggestions = () => {
+  let searchBar = document.getElementById('trie-search-bar');
+  suggestionsParent.hidden = true;
+  searchBar.classList.remove('search-bar-active');
+};
+const showSuggestions = () => {
+  let searchBar = document.getElementById('trie-search-bar');
+  searchBar.classList.add('search-bar-active');
+  suggestionsParent.hidden = false;
+};
+
 const updateSuggestions = async (e) => {
   if (e.target.value == '') {
-    suggestionsParent.hidden = true;
+    hideSuggestions();
     return;
   }
 
@@ -28,7 +39,7 @@ const updateSuggestions = async (e) => {
   const suggestions = await response.json();
 
   if (!suggestions.length) {
-    suggestionsParent.hidden = true;
+    hideSuggestions();
     return;
   }
 
@@ -37,7 +48,7 @@ const updateSuggestions = async (e) => {
   suggestionsParent.append(ul);
 
   arrayToSuggestionsLIs(suggestions).forEach((node) => ul.appendChild(node));
-  suggestionsParent.hidden = false;
+  showSuggestions();
 };
 
 /**

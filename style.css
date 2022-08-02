@@ -144,19 +144,32 @@ input {
   border: none;
   outline: none;
 }
+
+ul > * {
+  margin-bottom: 10px;
+}
+
 .auto-complete {
   background-color: white;
   border: 1px solid lightgrey;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   border-top: none;
-  padding: 8px 14px;
+  padding: 0px 20px 8px 20px;
 }
+
+.auto-line {
+  border-top: 1px solid lightgrey;
+  margin-bottom: 10px;
+  width: 350px;
+}
+
 .auto-suggestion {
   /* background-color: blue; */
   /* padding: 8px 10px; */
   width: 350px;
 }
+
 .search {
   /* background-color: blue; */
   /* padding: 8px 10px; */
@@ -165,7 +178,7 @@ input {
 
 .search-bar {
   background-color: white;
-  padding: 8px 14px;
+  padding: 8px 20px;
   border: 1px solid lightgrey;
   border-radius: 24px;
 }

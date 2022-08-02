@@ -16,13 +16,15 @@ let suggestionsParent = document.getElementById('suggestions');
 
 // create cache, check cache before sending request to API
 // should not make requests if there are character(s) and already no suggestions
-// add words
+// clicking outside of search box should collapse suggestions
+// clicking back in should reshow suggestions if present
 
 const hideSuggestions = () => {
   let searchBar = document.getElementById('trie-search-bar');
   suggestionsParent.hidden = true;
   searchBar.classList.remove('search-bar-active');
 };
+
 const showSuggestions = () => {
   let searchBar = document.getElementById('trie-search-bar');
   searchBar.classList.add('search-bar-active');
@@ -43,7 +45,7 @@ const updateSuggestions = async (e) => {
     return;
   }
 
-  suggestionsParent.firstChild?.remove();
+  suggestionsParent.children[1]?.remove();
   let ul = document.createElement('ul');
   suggestionsParent.append(ul);
 

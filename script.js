@@ -14,8 +14,9 @@ const arrayToSuggestionsLIs = (suggestions) => {
 let input = document.getElementById('search-input');
 let suggestionsParent = document.getElementById('suggestions');
 
-// debounce
+// create cache, check cache before sending request to API
 // should not make requests if there are character(s) and already no suggestions
+// add words
 
 const updateSuggestions = async (e) => {
   if (e.target.value == '') {
@@ -39,6 +40,13 @@ const updateSuggestions = async (e) => {
   suggestionsParent.hidden = false;
 };
 
+/**
+ * @param {*} ctx The context
+ * @param {function} func The function to execute after the debounce time
+ * @param {number} delay The amount of time to wait
+ * @return {function} The debounced function
+ * @note From https://chiamakaikeanyi.dev/event-debouncing-and-throttling-in-javascript/
+ */
 const debounce = (context, func, delay) => {
   let timeout;
 

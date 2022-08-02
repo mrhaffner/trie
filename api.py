@@ -7,10 +7,11 @@ from trie import Trie
 
 t = Trie()
 
-t.add("Apple")
-t.add("AppleOrchard")
-t.add("Doggo")
-t.add("Apple Orchard")
+with open("search_terms.json", "r") as f:
+    terms = json.loads(f.read())
+    for term in terms:
+        t.add(term["term"])
+        
 
 app = Flask(__name__)
 CORS(app)

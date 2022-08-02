@@ -21,7 +21,8 @@ def index():
 
 @app.route("/trie", methods=["GET"])
 def query_trie():
-    prefix = request.args.get("prefix")
+    prefix = request.args.get("prefix").replace("%20", " ")
+    print(prefix)
     number = request.args.get("number")
     suggestions = t.get_suggestions(prefix)
     output = suggestions[:int(number)] if number else suggestions
@@ -34,4 +35,6 @@ def add_word():
     t.add(word)
     return "", 200
 
-app.run()
+
+if __name__ == "__main__":
+    app.run()

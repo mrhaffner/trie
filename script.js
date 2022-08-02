@@ -19,7 +19,7 @@ let suggestionsParent = document.getElementById('suggestions');
 
 // debounce
 // should not make requests if there are character(s) and already no suggestions
-// should show itself as a suggestion if it is there? probably on back end
+// handle spaces? other characters? back and on front
 
 const updateSuggestions = async (e) => {
   if (e.target.value == '') {
@@ -27,7 +27,7 @@ const updateSuggestions = async (e) => {
     return;
   }
 
-  const response = await fetch(`${testUri}${e.target.value}`);
+  const response = await fetch(`${testUri}${encodeQuery(e.target.value)}`);
   const suggestions = await response.json();
 
   if (!suggestions.length) {
@@ -44,3 +44,7 @@ const updateSuggestions = async (e) => {
 };
 
 input.addEventListener('input', updateSuggestions);
+
+function encodeQuery(query) {
+  return query.replaceAll(' ', '%20');
+}

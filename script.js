@@ -53,4 +53,4 @@ const debounce = (context, func, delay) => {
   };
 };
 
-input.addEventListener('input', debounce(this, updateSuggestions, 300));
+input.addEventListener('input', debounce(this, updateSuggestions, 150));

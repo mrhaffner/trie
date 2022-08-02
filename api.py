@@ -1,4 +1,6 @@
 import json
+import urllib.parse
+
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 from trie import Trie
@@ -21,8 +23,7 @@ def index():
 
 @app.route("/trie", methods=["GET"])
 def query_trie():
-    prefix = request.args.get("prefix").replace("%20", " ")
-    print(prefix)
+    prefix = urllib.parse.unquote(request.args.get("prefix"))
     number = request.args.get("number")
     suggestions = t.get_suggestions(prefix)
     output = suggestions[:int(number)] if number else suggestions

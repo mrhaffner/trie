@@ -29,12 +29,23 @@ class Trie:
         # throw error if letter len is not right
         if letter == ' ':
             return self._num_chars - 1
-        return ord(letter.lower()) - ord('a')
+        index = ord(letter.lower()) - ord('a')
+        if 0 <= index < SIZE_OF_CHAR_SET:
+            return index
+        else:
+            return -1
+
+    
+    def _is_valid_word(self, word: str) -> bool:
+        for char in word:
+            if self._letter_to_index(char) < 0:
+                return False
+        return True
     
     
     def add(self, word: str) -> bool:
-        if (not word):
-            return
+        if (not word) or (not self._is_valid_word(word)):
+            return False
         # add multiple???
         # throw error if not a letter
         # do nothing if empty string
@@ -48,7 +59,11 @@ class Trie:
             
             cur_node = cur_node.edges[idx]
         
-        cur_node.is_leaf = True
+        if cur_node.is_leaf:
+            return False
+        else:
+            cur_node.is_leaf = True
+            return True
       
     
     def contains(self, word: str) -> bool:
@@ -67,6 +82,8 @@ class Trie:
 
     
     def delete(self, word: str) -> bool:
+        if not word or not self._is_valid_word(word):
+            return False
         # empty word condition
         cur_node = delete_from = self.root
         delete_idx = self._letter_to_index(word[0])
@@ -91,6 +108,8 @@ class Trie:
 
 
     def get_suggestions(self, word):
+        if not self._is_valid_word(word):
+            return []
         # handle empty word?
         cur_node = self.root
 

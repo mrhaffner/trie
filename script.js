@@ -1,9 +1,6 @@
 // needs an IIFE
 
-const testArr = ['Apple', 'AppleOrchard', 'Apple Orchard'];
 const testUri = 'http://127.0.0.1:5000/trie?prefix=';
-
-const headers = {};
 
 const arrayToSuggestionsLIs = (suggestions) => {
   return suggestions.map((suggestion) => {
@@ -19,7 +16,6 @@ let suggestionsParent = document.getElementById('suggestions');
 
 // debounce
 // should not make requests if there are character(s) and already no suggestions
-// handle spaces? other characters? back and on front
 
 const updateSuggestions = async (e) => {
   if (e.target.value == '') {
@@ -43,4 +39,18 @@ const updateSuggestions = async (e) => {
   suggestionsParent.hidden = false;
 };
 
-input.addEventListener('input', updateSuggestions);
+const debounce = (context, func, delay) => {
+  let timeout;
+
+  return (...arguments) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    timeout = setTimeout(() => {
+      func.apply(context, arguments);
+    }, delay);
+  };
+};
+
+input.addEventListener('input', debounce(this, updateSuggestions, 300));

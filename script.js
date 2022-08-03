@@ -13,27 +13,30 @@ const arrayToSuggestionsLIs = (suggestions) => {
 
 let input = document.getElementById('search-input');
 let suggestionsParent = document.getElementById('suggestions');
+let searchBar = document.getElementById('trie-search-bar');
+let form = document.getElementById('trie-form');
+let haveSuggestions = false;
 
 // create cache, check cache before sending request to API
+// suggestions should be a popup
 // should not make requests if there are character(s) and already no suggestions
-// clicking outside of search box should collapse suggestions
-// clicking back in should reshow suggestions if present
 
 const hideSuggestions = () => {
-  let searchBar = document.getElementById('trie-search-bar');
   suggestionsParent.hidden = true;
-  searchBar.classList.remove('search-bar-active');
+  searchBar.classList.remove('search-bar-suggestions');
 };
 
 const showSuggestions = () => {
-  let searchBar = document.getElementById('trie-search-bar');
-  searchBar.classList.add('search-bar-active');
+  searchBar.classList.add('search-bar-suggestions');
   suggestionsParent.hidden = false;
 };
 
 const updateSuggestions = async (e) => {
+  searchBar.classList.add('search-bar-active');
+
   if (e.target.value == '') {
     hideSuggestions();
+    haveSuggestions = false;
     return;
   }
 
@@ -42,15 +45,17 @@ const updateSuggestions = async (e) => {
 
   if (!suggestions.length) {
     hideSuggestions();
+    haveSuggestions = false;
     return;
   }
 
-  suggestionsParent.children[1]?.remove();
+  suggestionsParent.children[1]?.remove(); // susceptible to breaking on change of url structure
   let ul = document.createElement('ul');
   suggestionsParent.append(ul);
 
   arrayToSuggestionsLIs(suggestions).forEach((node) => ul.appendChild(node));
   showSuggestions();
+  haveSuggestions = true;
 };
 
 /**
@@ -75,3 +80,18 @@ const debounce = (context, func, delay) => {
 };
 
 input.addEventListener('input', debounce(this, updateSuggestions, 150));
+
+document.addEventListener('click', (e) => {
+  const clickedInput = input.contains(e.target);
+  const clickedOutsideForm = form.contains(e.target);
+
+  if (clickedInput) {
+    searchBar.classList.add('search-bar-active');
+    if (haveSuggestions) {
+      showSuggestions();
+    }
+  } else if (!clickedOutsideForm) {
+    searchBar.classList.remove('search-bar-active');
+    hideSuggestions();
+  }
+});

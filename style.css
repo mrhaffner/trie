@@ -158,6 +158,7 @@ ul > * {
   box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
   clip-path: inset(0px -8px -8px -8px);
   padding: 0px 20px 8px 20px;
+  position: absolute;
 }
 
 .auto-line {

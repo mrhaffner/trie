@@ -18,7 +18,6 @@ let form = document.getElementById('trie-form');
 let haveSuggestions = false;
 
 // create cache, check cache before sending request to API
-// suggestions should be a popup
 // should not make requests if there are character(s) and already no suggestions
 
 const hideSuggestions = () => {

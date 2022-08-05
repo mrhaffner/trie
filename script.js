@@ -16,9 +16,6 @@
   let form = document.getElementById('trie-form');
   let haveSuggestions = false;
 
-  // create cache, check cache before sending request to API
-  // should not make requests if there are character(s) and already no suggestions
-
   const hideSuggestions = () => {
     suggestionsParent.hidden = true;
     searchBar.classList.remove('search-bar-suggestions');
@@ -94,3 +91,7 @@
     }
   });
 })();
+
+// create cache, check cache before sending request to API
+// should not make requests if there are character(s) and already no suggestions
+// show the speed with which things were fetched

@@ -1,8 +1,9 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-        v2.0 | 20110126
-        License: none (public domain)
-        */
-
+/* 
+CSS Reset
+http://meyerweb.com/eric/tools/css/reset/ 
+v2.0 | 20110126
+License: none (public domain)
+*/
 html,
 body,
 div,
@@ -127,6 +128,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* End reset */
+
 body,
 input {
   color: #202124;
@@ -135,14 +138,43 @@ input {
   font-size: 16px;
   font-weight: 400px;
 }
+
 body {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
+
+h1,
+h2 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+header {
+  margin: 50px 0px;
+}
+
 input {
   border: none;
   outline: none;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  max-width: 800px;
 }
 
 ul > * {
@@ -168,14 +200,10 @@ ul > * {
 }
 
 .auto-suggestion {
-  /* background-color: blue; */
-  /* padding: 8px 10px; */
   width: 350px;
 }
 
 .search {
-  /* background-color: blue; */
-  /* padding: 8px 10px; */
   width: 350px;
   padding: 0px;
 }

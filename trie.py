@@ -1,4 +1,5 @@
 # equals method?
+MAX_DEPTH = 200
 SIZE_OF_CHAR_SET = 27
 
 class TrieNode:
@@ -17,9 +18,10 @@ class TrieNode:
 class Trie:
     
     def __init__(self):
+        self._max_depth = MAX_DEPTH
         self._num_chars = SIZE_OF_CHAR_SET
         self.root = self._create_node()
-        
+
     
     def _create_node(self):
         return TrieNode(self._num_chars)
@@ -37,6 +39,8 @@ class Trie:
 
     
     def _is_valid_word(self, word: str) -> bool:
+        if (not word or len(word) > self._max_depth):
+            return False
         for char in word:
             if self._letter_to_index(char) < 0:
                 return False
@@ -44,11 +48,9 @@ class Trie:
     
     
     def add(self, word: str) -> bool:
-        if (not word) or (not self._is_valid_word(word)):
+        if not self._is_valid_word(word):
             return False
-        # add multiple???
         # throw error if not a letter
-        # do nothing if empty string
         cur_node = self.root 
 
         for char in word:

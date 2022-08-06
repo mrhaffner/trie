@@ -13,6 +13,7 @@ def test_add() -> None:
     assert not t.add("a+a")
     assert not t.add("---")
     assert not t.add("^asd")
+    assert not t.add("i" * 201)
     print("Add tests passed!")
 
 
@@ -31,7 +32,7 @@ def test_contains() -> None:
     assert not t.contains("a+a")
     assert not t.contains("---")
     assert not t.contains("^asd")
-    assert not t.contains("")
+    assert not t.contains("i" * 201)
     print("Contains tests passed!")
 
 
@@ -43,7 +44,7 @@ def test_get_all_words() -> None:
 def test_get_suggestions() -> None:
     assert t.get_suggestions("app") == ['apple', 'appleorchard', 'apple orchard']
     assert t.get_suggestions("apple") == ['apple', 'appleorchard', 'apple orchard']
-    assert t.get_suggestions("") == ['apple', 'appleorchard', 'apple orchard', 'doggo']
+    assert t.get_suggestions("") == []
     assert t.get_suggestions("Steve") == []
     assert t.get_suggestions("a+a") == []
     assert t.get_suggestions("---") == []

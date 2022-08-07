@@ -6,37 +6,37 @@ class AbstractTrie(ABC):
     """An abstract Trie (Suffix Tree)"""
 
     @abstractmethod
-    def insert(self, word: str) -> bool:
+    def insert(self, suffix: str) -> bool:
         """
         Adds a suffix to this Trie
-        Returns True if the word was added, False otherwise
+        Returns True if the suffix was added, False otherwise
         """
         raise NotImplementedError
     
 
     @abstractmethod
-    def delete(self, word: str) -> bool:
+    def delete(self, suffix: str) -> bool:
         """
-        Deletes a suffic from this Trie
+        Deletes a suffix from this Trie
         Returns True if the suffix was deleted, False otherwise
         """
         raise NotImplementedError
 
     
     @abstractmethod
-    def contains(self, word: str) -> bool:
+    def contains(self, suffix: str) -> bool:
         """Returns True if this Trie contains the suffix, False otherwise"""
         raise NotImplementedError
 
 
     @abstractmethod
-    def get_all(self) -> List[str]:
+    def get_all_suffixes(self) -> List[str]:
         """Returns a list of all suffixes in this Trie"""
         raise NotImplementedError
 
 
     @abstractmethod
-    def get_suggestions(self, prefix: str) -> List[str]:
+    def get_suffixes(self, prefix: str) -> List[str]:
         """
         Returns a list of all suffixes for the given prefix
         Returns an empty list if the prefix is not in this trie or if

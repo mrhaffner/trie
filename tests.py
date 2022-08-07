@@ -1,20 +1,44 @@
+import unittest
 from trie import Trie
+
+
+
+class TestAddToTrie(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.trie = Trie()
+
+    
+    def test_adds_word(self) -> None:
+        self.assertTrue(self.trie.add("Apple"))
+
+
+    # perhaps it should actually return true?
+    def test_add_duplicate(self) -> None:
+        self.assertTrue(self.trie.add("Apple"))
+        self.assertFalse(self.trie.add("Apple"))
+
+
+    # perhaps actually use root as empty str
+    def test_add_blank(self) -> None:
+        self.assertFalse(self.trie.add(""))
+
+
+    def test_add_above_max_char(self) -> None:
+        above_max = self.trie._max_depth + 1
+        self.assertFalse(self.trie.add("i" * above_max))
+
+
+    def test_add_with_space(self) -> None:
+        self.assertTrue(self.trie.add("Apple Orchard"))
+
+
+    def test_add_nad_char(self) -> None:
+        self.assertFalse(self.trie.add("a+a"))
+
 
 t = Trie()
 # assert False
-
-def test_add() -> None:
-    assert t.add("Apple") == True
-    assert not t.add("Apple")
-    assert t.add("AppleOrchard") == True
-    assert t.add("Doggo") == True
-    assert not t.add("")
-    assert t.add("Apple Orchard") == True
-    assert not t.add("a+a")
-    assert not t.add("---")
-    assert not t.add("^asd")
-    assert not t.add("i" * 201)
-    print("Add tests passed!")
 
 
 def test_contains() -> None:
@@ -72,7 +96,6 @@ def test_delete() -> None:
 
 
 if __name__ == "__main__":
-    test_add()
     test_contains()
     test_get_all_words()
     test_get_suggestions()

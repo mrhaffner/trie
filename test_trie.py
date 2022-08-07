@@ -33,8 +33,20 @@ class TestAddToTrie(unittest.TestCase):
         self.assertTrue(self.trie.add("Apple Orchard"))
 
 
-    def test_add_nad_char(self) -> None:
+    def test_add_bad_char(self) -> None:
         self.assertFalse(self.trie.add("a+a"))
+
+
+    def test_add_partial_duplicate_longer(self) -> None:
+        self.assertTrue(self.trie.add("Apple"))
+        self.assertTrue(self.trie.add("AppleOrchard"))
+
+
+    def test_add_partial_duplicate_shorter(self) -> None:
+        self.assertTrue(self.trie.add("Apple"))
+        self.assertTrue(self.trie.add("App"))
+
+
 
 
 t = Trie()

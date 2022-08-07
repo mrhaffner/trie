@@ -1,6 +1,7 @@
 __pycache__
 env
 .pyc
+notes.txt
 scraper.py
 scraped_pages
 search_terms.json

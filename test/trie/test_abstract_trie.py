@@ -1,6 +1,6 @@
 import unittest
 
-from abc import ABCMeta
+from abc import ABC
 from unittest.mock import patch
 from trie.abstract_trie import AbstractTrie
 
@@ -13,7 +13,7 @@ class TestAbstractTrie(unittest.TestCase):
 
 
     def test_is_abstract(self) -> None:
-        self.assertTrue(isinstance(AbstractTrie, ABCMeta))
+        self.assertTrue(issubclass(AbstractTrie, ABC))
 
 
     def test_cannot_instantiate(self) -> None:

@@ -39,7 +39,7 @@ class AbstractTrie(ABC):
     def get_suffixes(self, prefix: str) -> List[str]:
         """
         Returns a list of all suffixes for the given prefix
-        Returns an empty list if the prefix is not in this trie or if
+        Returns an empty list if the prefix is not in this trie or
             the prefix has no suffixes.
         """
         raise NotImplementedError

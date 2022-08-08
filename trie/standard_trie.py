@@ -24,6 +24,10 @@ class StandardTrie(AbstractTrie):
 
 
     def _is_valid_suffix(self, suffix: str) -> bool:
+        """
+        A valid suffix may contain only english letters and/or spaces
+        Returns True if the given suffix may be inserted into this Trie
+        """
         if len(suffix) > self._max_depth:
             return False
 
@@ -39,6 +43,18 @@ class StandardTrie(AbstractTrie):
 
 
     def _hash_char(self, char: str) -> int:
+        """
+        Converts and returns a single character to a hashcode
+        Upper case letters are converted to lower case
+
+        Examples:
+            a = 0
+            z = 25
+            space = 26
+
+        Raises ValueError if char is not an english letter or a space
+        Raises TypeError if the length of char is not 1
+        """
         if char == " ":
             return 26
         else:
@@ -49,11 +65,11 @@ class StandardTrie(AbstractTrie):
             return hash_code
 
 
-    def delete(self, suffix: str) -> bool:
+    def contains(self, suffix: str) -> bool:
         pass
 
 
-    def contains(self, suffix: str) -> bool:
+    def delete(self, suffix: str) -> bool:
         pass
 
 

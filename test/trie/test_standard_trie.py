@@ -50,10 +50,10 @@ class TestStandardTrieHashChar(TestStandardTrieParent):
 
 
     def test_raises_error_if_invalid_char(self) -> None:
-        # value less the ord(a)
+        # value less than ord(a) which is 0 
         with self.assertRaises(ValueError):
             self.trie._hash_char("&")
-        # value greater than ord(z) + 1
+        # value greater than ord(z) + 1 which is 26
         with self.assertRaises(ValueError):
             self.trie._hash_char("~")
 

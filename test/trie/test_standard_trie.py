@@ -34,12 +34,12 @@ class TestStandardTrieCreation(TestStandardTrieParent):
 class TestStandardTrieHashChar(TestStandardTrieParent):
 
     def test_converts_letter_to_0_index_alphabetical_num(self) -> None:
-        self.assertEquals(self.trie._hash_char("a"), 0)
-        self.assertEquals(self.trie._hash_char("z"), 25)
+        self.assertEqual(self.trie._hash_char("a"), 0)
+        self.assertEqual(self.trie._hash_char("z"), 25)
 
 
     def test_converts_space(self) -> None:
-        self.assertEquals(self.trie._hash_char(" "), 26)
+        self.assertEqual(self.trie._hash_char(" "), 26)
     
 
     def test_raises_error_if_length_not_one(self) -> None:
@@ -59,8 +59,8 @@ class TestStandardTrieHashChar(TestStandardTrieParent):
 
 
     def test_uppcase_letter_converts_to_lower(self) -> None:
-        self.assertEquals(self.trie._hash_char("A"), 0)
-        self.assertEquals(self.trie._hash_char("Z"), 25)
+        self.assertEqual(self.trie._hash_char("A"), 0)
+        self.assertEqual(self.trie._hash_char("Z"), 25)
 
 
 class TestStandardTrieIsValidSuffix(TestStandardTrieParent):
@@ -82,9 +82,7 @@ class TestStandardTrieInsert(TestStandardTrieParent):
 
     # contains?
     def test_inserts_valid_suffix(self) -> None:
-        self.assertTrue(self.trie.insert("Hello"))
         self.assertTrue(self.trie.insert("Hello Matt"))
-        self.assertTrue(self.trie.insert("He"))
         self.assertTrue(self.trie.insert(""))
 
 

@@ -10,9 +10,13 @@ class StandardTrie(AbstractTrie):
 
     SIZE_CHAR_SET = 27
 
-    # note about max.inf being a float
-    # do we need to test this default max_depth behavior?
     def __init__(self, max_depth: int = math.inf) -> None:
+        """
+        max_depth is defined to be an int.  However, the default value of
+        math.inf is actually a float.  While this is unfortunate, it should not matter.
+
+        Raises ValueError if max_depth is negative
+        """
         if max_depth < 0:
             raise ValueError("max_depth must be a positive integer")
 

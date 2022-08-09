@@ -5,22 +5,44 @@ from trie.trie_node import TrieNode
 from typing import List
 
 
-
 class StandardTrie(AbstractTrie):
     """A Trie (Suffix Tree)"""
+
+    SIZE_CHAR_SET = 27
 
     # note about max.inf being a float
     # do we need to test this default max_depth behavior?
     def __init__(self, max_depth: int = math.inf) -> None:
         if max_depth < 0:
-            raise ValueError('max_depth must be a positive integer')
+            raise ValueError("max_depth must be a positive integer")
 
-        self._root = TrieNode(0)
+        self._root = self._create_node()
+        # automatically includes the empty string
+        self._root.is_suffix_end = True
         self._max_depth = max_depth
 
     
+    def _create_node(self) -> TrieNode:
+        return TrieNode(StandardTrie.SIZE_CHAR_SET)
+
+
     def insert(self, suffix: str) -> bool:
-        return self._is_valid_suffix(suffix)
+        if not self._is_valid_suffix(suffix):
+            return False
+        
+        cur_node = self._root
+
+        for char in suffix:
+            hash_code = self._hash_char(char)
+
+            if not cur_node.edges[hash_code]:
+                cur_node.edges[hash_code] = self._create_node()
+
+            cur_node = cur_node.edges[hash_code]
+
+        cur_node.is_suffix_end = True
+
+        return True
 
 
     def _is_valid_suffix(self, suffix: str) -> bool:

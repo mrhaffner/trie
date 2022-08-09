@@ -15,17 +15,17 @@ class AbstractTrie(ABC):
     
 
     @abstractmethod
+    def contains(self, suffix: str) -> bool:
+        """Returns True if this Trie contains the suffix, False otherwise"""
+        raise NotImplementedError
+
+
+    @abstractmethod
     def delete(self, suffix: str) -> bool:
         """
         Deletes a suffix from this Trie
         Returns True if the suffix was deleted, False otherwise
         """
-        raise NotImplementedError
-
-    
-    @abstractmethod
-    def contains(self, suffix: str) -> bool:
-        """Returns True if this Trie contains the suffix, False otherwise"""
         raise NotImplementedError
 
 

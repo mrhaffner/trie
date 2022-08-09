@@ -31,6 +31,26 @@ class TestStandardTrieCreation(TestStandardTrieParent):
             StandardTrie(-1)
 
 
+class TestCreateNode(TestStandardTrieParent):
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.node = self.trie._create_node()
+
+
+    def test_edges_have_correct_length(self) -> None:
+        self.assertEqual(len(self.node.edges), StandardTrie.SIZE_CHAR_SET)
+
+
+    def test_edges_are_none(self) -> None:
+        for edge in self.node.edges:
+            self.assertEqual(edge, None)
+
+
+    def test_is_not_suffix_end(self) -> None:
+        self.assertFalse(self.node.is_suffix_end)
+
+
 class TestStandardTrieHashChar(TestStandardTrieParent):
 
     def test_converts_letter_to_0_index_alphabetical_num(self) -> None:
@@ -84,25 +104,38 @@ class TestStandardTrieInsert(TestStandardTrieParent):
     def test_inserts_valid_suffix(self) -> None:
         self.assertTrue(self.trie.insert("Hello Matt"))
         self.assertTrue(self.trie.insert(""))
+        # self.assertTrue(self.trie.contains("Hello Matt"))
+        # self.assertTrue(self.trie.contains(""))
 
 
     # use patch for tests that depend on other functions?
     def test_does_not_add_invalid_suffix(self) -> None:
         self.assertFalse(self.trie.insert("&%$"))
         self.assertFalse(self.trie.insert("h" * (self.trie._max_depth + 1)))
+        # self.assertFalse(self.trie.contains("&%$"))
+        # self.assertFalse(self.trie.contains("h" * (self.trie._max_depth + 1)))
         
 
     def test_inserts_duplicate(self) -> None:
-        pass
+        self.assertTrue(self.trie.insert("Hello"))
+        self.assertTrue(self.trie.insert("Hello"))
 
 
     def test_inserts_shorter_overlapping_suffix(self) -> None:
-        pass
+        self.assertTrue(self.trie.insert("Hello"))
+        self.assertTrue(self.trie.insert("He"))
+        # self.assertTrue(self.trie.contains("Hello"))
+        # self.assertTrue(self.trie.contains("He"))
 
 
     def test_inserts_longer_overlapping_suffix(self) -> None:
-        pass
+        self.assertTrue(self.trie.insert("He"))
+        self.assertTrue(self.trie.insert("Hello"))
+        # self.assertTrue(self.trie.contains("He"))
+        # self.assertTrue(self.trie.contains("Hello"))
 
 
+class TestStandardTrieContains(TestStandardTrieParent):
+    pass
 
         

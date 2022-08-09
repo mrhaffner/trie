@@ -69,7 +69,7 @@ class StandardTrie(AbstractTrie):
         Converts and returns a single character to a hashcode
         Upper case letters are converted to lower case
 
-        Examples:
+        Example hash codes:
             a = 0
             z = 25
             space = 26
@@ -88,7 +88,22 @@ class StandardTrie(AbstractTrie):
 
 
     def contains(self, suffix: str) -> bool:
-        pass
+        cur_node = self._root
+
+        for char in suffix:
+            if not self._is_valid_suffix(char):
+                return False
+
+            hash_code = self._hash_char(char)
+            cur_node = cur_node.edges[hash_code]
+
+            if cur_node is None:
+                return False
+            
+        if cur_node.is_suffix_end:
+            return True
+        else:
+            return False
 
 
     def delete(self, suffix: str) -> bool:

@@ -100,20 +100,25 @@ class TestStandardTrieIsValidSuffix(TestStandardTrieParent):
 
 class TestStandardTrieInsertAndContains(TestStandardTrieParent):
 
-    # contains?
     def test_inserts_valid_suffix(self) -> None:
         self.assertTrue(self.trie.insert("Hello Matt"))
-        self.assertTrue(self.trie.insert(""))
         self.assertTrue(self.trie.contains("Hello Matt"))
+
+
+    def test_inserts_empty_suffix(self) -> None:
+        self.assertTrue(self.trie.insert(""))
         self.assertTrue(self.trie.contains(""))
 
 
     # use patch for tests that depend on other functions?
-    def test_does_not_add_invalid_suffix(self) -> None:
-        self.assertFalse(self.trie.insert("&%$"))
+    def test_does_not_add_too_long_suffix(self) -> None:
         self.assertFalse(self.trie.insert("h" * (self.trie._max_depth + 1)))
-        self.assertFalse(self.trie.contains("&%$"))
         self.assertFalse(self.trie.contains("h" * (self.trie._max_depth + 1)))
+
+
+    def test_does_not_add_suffix_with_bad_chars(self) -> None:
+        self.assertFalse(self.trie.insert("&%$"))
+        self.assertFalse(self.trie.contains("&%$"))
         
 
     def test_inserts_duplicate(self) -> None:

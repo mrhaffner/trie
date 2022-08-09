@@ -23,6 +23,7 @@ class StandardTrie(AbstractTrie):
 
     
     def _create_node(self) -> TrieNode:
+        """Creates a new TrieNode with length edges equal to SIZE_CHAR_SET"""
         return TrieNode(StandardTrie.SIZE_CHAR_SET)
 
 

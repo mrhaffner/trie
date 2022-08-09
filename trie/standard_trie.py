@@ -36,11 +36,13 @@ class StandardTrie(AbstractTrie):
         for char in suffix:
             hash_code = self._hash_char(char)
 
+            # create new node if char not in trie
             if not cur_node.edges[hash_code]:
                 cur_node.edges[hash_code] = self._create_node()
 
             cur_node = cur_node.edges[hash_code]
 
+        # mark the end of the suffix
         cur_node.is_suffix_end = True
 
         return True
@@ -57,9 +59,9 @@ class StandardTrie(AbstractTrie):
         try:
             for char in suffix:
                 self._hash_char(char)
-        except TypeError:
+        except TypeError: # if length is not 1 
             return False
-        except ValueError:
+        except ValueError: # if not a valid char
             return False
         
         return True

@@ -114,7 +114,24 @@ class StandardTrie(AbstractTrie):
 
 
     def delete(self, suffix: str) -> bool:
-        pass
+        # cannot delete empty string
+        if suffix == "":
+            return False
+
+        cur_node = self._root
+
+        for char in suffix:
+            if not self._is_valid_suffix(char):
+                return False
+                
+            hash_code = self._hash_char(char)
+            cur_node = cur_node.edges[hash_code]
+
+            if cur_node is None:
+                return False
+
+        cur_node.is_suffix_end = False
+        return True
 
 
     def get_all_suffixes(self) -> List[str]:

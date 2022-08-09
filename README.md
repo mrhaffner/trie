@@ -10,10 +10,23 @@ Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
 ## Instructions
 
+Install coverage:
+
+```sh
+$ pip3 install coverage
+```
+
 Run the tests:
 
 ```sh
-$ python3 -m unittest
+$ coverage run -m unittest
+```
+
+Get a test coverage reports:
+
+```sh
+$ coverage report -m
+$ coverage html
 ```
 
 ## Acknowledgements

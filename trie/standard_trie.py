@@ -119,11 +119,12 @@ class StandardTrie(AbstractTrie):
 
     # default arg for empty
     # method to iterate to node?
-    def get_suffixes(self, prefix: str) -> List[str]:
-        suffixes = []
+    def get_suffixes(self, prefix: str = "") -> List[str]:
         node = self._get_node_from_str(prefix)
 
-
+        if node is None:
+            return []
+        return self._get_suffixes_from_node(node)
 
 
     def _get_node_from_str(self, word: str) -> TrieNode:
@@ -147,7 +148,7 @@ class StandardTrie(AbstractTrie):
         if suffixes is None:
             suffixes = []
 
-        if node.is_suffix_end:
+        if node.is_suffix_end and suffix != "":
             suffixes.append(suffix)
 
         for idx, node in enumerate(node.edges):

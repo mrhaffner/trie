@@ -152,7 +152,7 @@ class StandardTrie(AbstractTrie):
 
         for idx, node in enumerate(node.edges):
             if node:
-                self._get_suffixes_from_node(node, suffix + self. _reverse_hash_char(idx), suffixes)
+                self._get_suffixes_from_node(node, suffix + self._reverse_hash_char(idx), suffixes)
 
         return suffixes
 

@@ -32,7 +32,7 @@ class TestGetSuffixes(TestStandardTrieParent):
 
 class TestGetSuffixesFromNode(TestStandardTrieParent):
     
-    SUFFIXES = ["dog", "apple", "app", "apple orchard"]
+    SUFFIXES = ["app", "apple", "apple orchard", "dog"]
 
     def setUp(self) -> None:
         super().setUp()
@@ -45,12 +45,25 @@ class TestGetSuffixesFromNode(TestStandardTrieParent):
 
 
     def test_empty_node(self) -> None:
-        self.assertEqual(self.trie._get_suffixes_from_node(self.node), [])
+        self.assertEqual(self.trie._get_suffixes_from_node(self.node), [""])
 
 
     def test_single_suffix(self) -> None:
-        suffixes = TestGetSuffixes.SUFFIXES[0]
+        suffixes = [TestGetSuffixesFromNode.SUFFIXES[-1]]
         self.add_suffixes(suffixes)
-        self.assertEqual(self.trie._get_suffixes_from_node(self.node), suffixes)
+        self.assertEqual(self.trie._get_suffixes_from_node(self.node), [""] + suffixes)
+
+
+    def test_multiple_overlapping_suffixes(self) -> None:
+        suffixes = TestGetSuffixesFromNode.SUFFIXES[0:3]
+        self.add_suffixes(suffixes)
+        self.assertEqual(self.trie._get_suffixes_from_node(self.node), [""] + suffixes)
+
+
+    def test_multiple_suffixes_from_root(self) -> None:
+        suffixes = TestGetSuffixesFromNode.SUFFIXES[2:]
+        self.add_suffixes(suffixes)
+        self.assertEqual(self.trie._get_suffixes_from_node(self.node), [""] + suffixes)
+
 
     

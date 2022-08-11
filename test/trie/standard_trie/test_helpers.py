@@ -67,3 +67,46 @@ class TestStandardTrieIsValidSuffix(TestStandardTrieParent):
     # use patch for tests that depend on other functions?
     def test_non_hashable_suffix_is_invalid(self):
         self.assertFalse(self.trie._is_valid_suffix("&%$")) 
+
+
+class TestGetNodeFromStr(TestStandardTrieParent):
+
+    SUFFIXES = ["dog", "apple", "app", "apple orchard"]
+
+    def setUp(self) -> None:
+        super().setUp()
+
+        for suffix in TestGetNodeFromStr.SUFFIXES:
+            self.trie.insert(suffix)
+
+
+    def test_empty_str(self) -> None:
+        self.assertEqual(self.trie._get_node_from_str(""), self.trie._root)
+
+
+    def test_invalid_word(self) -> None:
+        self.assertIsNone(self.trie._get_node_from_str("&!&"))
+
+
+    def test_word_not_in_trie(self) -> None:
+        self.assertIsNone(self.trie._get_node_from_str("bee"))
+
+    
+    def test_longer_overlapping(self) -> None:
+        self.assertIsNone(self.trie._get_node_from_str("apple orchards"))
+
+    def test_equal_word_non_overlapping(self) -> None:
+        node = self.trie._get_node_from_str("dog")
+        for edge in node.edges:
+            self.assertIsNone(edge)
+
+    def test_shorter_overlapping(self) -> None:
+        node = self.trie._get_node_from_str("app")
+        l_hash = self.trie._hash_char("l")
+        
+        for i, edge in enumerate(node.edges):
+            if i == l_hash:
+                self.assertIsNotNone(edge)
+            else:
+                self.assertIsNone(edge)
+

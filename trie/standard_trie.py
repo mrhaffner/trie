@@ -134,11 +134,40 @@ class StandardTrie(AbstractTrie):
         return True
 
 
+    # get rid of
     def get_all_suffixes(self) -> List[str]:
         pass
 
 
+    # default arg for empty
+    # method to iterate to node?
     def get_suffixes(self, prefix: str) -> List[str]:
-        pass
+        suffixes = []
+        cur_node = self._root
+
+        # get start of suffixes
+        for char in prefix:
+            if not self._is_valid_suffix(char):
+                return suffixes
+
+            hash_code = self._hash_char(char)
+            cur_node = cur_node.edges[hash_code]
+
+            if cur_node is None:
+                return suffixes
 
 
+    def _get_node_from_str(self, word: str) -> TrieNode:
+        if not self._is_valid_suffix(word):
+            return None
+
+        cur_node = self._root
+
+        for char in word:
+            hash_code = self._hash_char(char)
+            cur_node = cur_node.edges[hash_code]
+
+            if cur_node is None:
+                return cur_node
+
+        return cur_node

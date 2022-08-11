@@ -1,4 +1,3 @@
-from cgi import test
 from test.trie.standard_trie.test_creation import TestStandardTrieParent
 
 
@@ -65,7 +64,6 @@ class TestDelete(TestStandardTrieParent):
         for suffix in TestDelete.SUFFIXES:
             self.assertTrue(self.trie.contains(suffix))
         
-
 
     def test_handles_suffix_with_bad_chars(self) -> None:
         test_word = "&~"

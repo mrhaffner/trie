@@ -35,11 +35,6 @@ class TestAbstractTrie(unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.trie.contains("w")
 
-    
-    def test_has_abstract_get_all_suffixes(self) -> None:
-        with self.assertRaises(NotImplementedError):
-            self.trie.get_all_suffixes()
-
 
     def test_has_abstract_get_suffixes(self) -> None:
         with self.assertRaises(NotImplementedError):

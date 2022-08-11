@@ -30,12 +30,6 @@ class AbstractTrie(ABC):
 
 
     @abstractmethod
-    def get_all_suffixes(self) -> List[str]:
-        """Returns a list of all suffixes in this Trie"""
-        raise NotImplementedError
-
-
-    @abstractmethod
     def get_suffixes(self, prefix: str) -> List[str]:
         """
         Returns a list of all suffixes for the given prefix

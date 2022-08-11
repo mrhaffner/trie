@@ -113,3 +113,20 @@ class TestGetNodeFromStr(TestStandardTrieParent):
             else:
                 self.assertIsNone(edge)
 
+
+class TestReverseHashChar(TestStandardTrieParent):
+
+    def test_converts_index_to_letter(self) -> None:
+        self.assertEqual("a", self.trie._reverse_hash_char(0))
+        self.assertEqual("z", self.trie._reverse_hash_char(25))
+
+
+    def test_converts_space(self) -> None:
+        self.assertEqual(" ", self.trie._reverse_hash_char(26))
+
+
+    def test_raises_error_if_invalid_index(self) -> None:
+        with self.assertRaises(ValueError):
+            self.trie._reverse_hash_char(-1)
+        with self.assertRaises(ValueError):
+            self.trie._reverse_hash_char(27)

@@ -117,30 +117,17 @@ class StandardTrie(AbstractTrie):
         return True
 
 
-    # get rid of
-    def get_all_suffixes(self) -> List[str]:
-        pass
-
-
     # default arg for empty
     # method to iterate to node?
     def get_suffixes(self, prefix: str) -> List[str]:
         suffixes = []
-        cur_node = self._root
+        node = self._get_node_from_str(prefix)
 
-        # get start of suffixes
-        for char in prefix:
-            if not self._is_valid_suffix(char):
-                return suffixes
 
-            hash_code = self._hash_char(char)
-            cur_node = cur_node.edges[hash_code]
-
-            if cur_node is None:
-                return suffixes
 
 
     def _get_node_from_str(self, word: str) -> TrieNode:
+        # add doc string
         cur_node = self._root
 
         for char in word:
@@ -154,3 +141,25 @@ class StandardTrie(AbstractTrie):
                 return cur_node
 
         return cur_node
+
+
+    def _get_suffixes_from_node(self, node: TrieNode, suffix = "", suffixes = None) -> List[str]:
+        if suffixes is None:
+            suffixes = []
+
+        if node.is_suffix_end:
+            suffixes.append(suffix)
+
+        for idx, node in enumerate(node.edges):
+            if node:
+                self._get_suffixes_from_node(node, suffix + self. _reverse_hash_char(idx), suffixes)
+
+        return suffixes
+
+
+    def _reverse_hash_char(self, index: int) -> str:
+        if (not 0 <= index <= 26):
+            raise ValueError("Index must be between 0 and 26 inclusive")
+        if index == 26:
+            return " "
+        return chr(index + ord("a"))

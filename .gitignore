@@ -1,6 +1,8 @@
 __pycache__
 env
+.coverage
 .pyc
+
 notes.txt
 scraper.py
 scraped_pages

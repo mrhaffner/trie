@@ -158,12 +158,12 @@ class StandardTrie(AbstractTrie):
 
 
     def _get_node_from_str(self, word: str) -> TrieNode:
-        if not self._is_valid_suffix(word):
-            return None
-
         cur_node = self._root
 
         for char in word:
+            if not self._is_valid_suffix(word):
+                return None
+                
             hash_code = self._hash_char(char)
             cur_node = cur_node.edges[hash_code]
 

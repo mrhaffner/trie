@@ -95,15 +95,18 @@ class TestGetNodeFromStr(TestStandardTrieParent):
     def test_longer_overlapping(self) -> None:
         self.assertIsNone(self.trie._get_node_from_str("apple orchards"))
 
+
     def test_equal_word_non_overlapping(self) -> None:
         node = self.trie._get_node_from_str("dog")
+        
         for edge in node.edges:
             self.assertIsNone(edge)
+
 
     def test_shorter_overlapping(self) -> None:
         node = self.trie._get_node_from_str("app")
         l_hash = self.trie._hash_char("l")
-        
+
         for i, edge in enumerate(node.edges):
             if i == l_hash:
                 self.assertIsNotNone(edge)

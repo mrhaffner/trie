@@ -95,22 +95,12 @@ class StandardTrie(AbstractTrie):
 
 
     def contains(self, suffix: str) -> bool:
-        cur_node = self._root
+        node = self._get_node_from_str(suffix)
 
-        for char in suffix:
-            if not self._is_valid_suffix(char):
-                return False
-
-            hash_code = self._hash_char(char)
-            cur_node = cur_node.edges[hash_code]
-
-            if cur_node is None:
-                return False
-            
-        if cur_node.is_suffix_end:
-            return True
-        else:
+        if node is None or not node.is_suffix_end:
             return False
+        else:
+            return True
 
 
     def delete(self, suffix: str) -> bool:
@@ -118,19 +108,12 @@ class StandardTrie(AbstractTrie):
         if suffix == "":
             return False
 
-        cur_node = self._root
+        node = self._get_node_from_str(suffix)
+        
+        if node is None:
+            return False
 
-        for char in suffix:
-            if not self._is_valid_suffix(char):
-                return False
-                
-            hash_code = self._hash_char(char)
-            cur_node = cur_node.edges[hash_code]
-
-            if cur_node is None:
-                return False
-
-        cur_node.is_suffix_end = False
+        node.is_suffix_end = False
         return True
 
 

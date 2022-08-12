@@ -12,9 +12,8 @@ class StandardTrie(AbstractTrie):
 
     def __init__(self, max_depth: int = math.inf) -> None:
         """
-        max_depth is defined to be an int.  However, the default value of
-        math.inf is actually a float.  While this is unfortunate, it should not matter.
-
+        max_depth is defined to be an int.  However, the default value of math.inf 
+            is actually a float.  While this is unfortunate, it should not matter
         Raises ValueError if max_depth is negative
         """
         if max_depth < 0:
@@ -75,9 +74,9 @@ class StandardTrie(AbstractTrie):
         """
         Converts and returns a single character to a hashcode
         Upper case letters are converted to lower case
-
         Example hash codes:
             a = 0
+            ...
             z = 25
             space = 26
 
@@ -117,18 +116,22 @@ class StandardTrie(AbstractTrie):
         return True
 
 
-    # default arg for empty
-    # method to iterate to node?
     def get_suffixes(self, prefix: str = "") -> List[str]:
         node = self._get_node_from_str(prefix)
-
+        
         if node is None:
             return []
+
         return self._get_suffixes_from_node(node)
 
 
     def _get_node_from_str(self, word: str) -> TrieNode:
-        # add doc string
+        """
+        Traverses this trie to get return the node at the end of word 
+            if word is in this trie
+        Returns None if the word is not a valid suffix or the word is
+            not in this trie
+        """
         cur_node = self._root
 
         for char in word:
@@ -145,9 +148,13 @@ class StandardTrie(AbstractTrie):
 
 
     def _get_suffixes_from_node(self, node: TrieNode, suffix = "", suffixes = None) -> List[str]:
+        """
+        Returns an array of all suffixes from a given root node
+        """
         if suffixes is None:
             suffixes = []
 
+        # do not add "" to suffixes
         if node.is_suffix_end and suffix != "":
             suffixes.append(suffix)
 
@@ -159,6 +166,16 @@ class StandardTrie(AbstractTrie):
 
 
     def _reverse_hash_char(self, index: int) -> str:
+        """
+        Converts and returns a char based by unhashing an edges index
+        Example outputs:
+            0 = a
+            ...
+            25 = z
+            26 = space
+
+        Raises ValueError if index is not between 0 and 26 inclusive
+        """
         if (not 0 <= index <= 26):
             raise ValueError("Index must be between 0 and 26 inclusive")
         if index == 26:

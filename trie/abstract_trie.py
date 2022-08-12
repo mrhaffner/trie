@@ -30,10 +30,11 @@ class AbstractTrie(ABC):
 
 
     @abstractmethod
-    def get_suffixes(self, prefix: str) -> List[str]:
+    def get_suffixes(self, prefix: str = "") -> List[str]:
         """
         Returns a list of all suffixes for the given prefix
         Returns an empty list if the prefix is not in this trie or
-            the prefix has no suffixes.
+            the prefix has no suffixes
+        If no arguement is provided, returns all suffixes in this trie
         """
         raise NotImplementedError

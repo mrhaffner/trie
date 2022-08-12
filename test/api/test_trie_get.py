@@ -1,4 +1,3 @@
-from app import starting_suffixes
 from test.api.test_api_setup import TestApi
 
 
@@ -7,7 +6,7 @@ class TestTrieGet(TestApi):
     def test_trie_get_all(self) -> None:
         response = self.client.get("/api/trie")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json, starting_suffixes)
+        self.assertEqual(response.json, self.starting_suffixes)
 
 
     def test_trie_get_from_prefix(self) -> None:

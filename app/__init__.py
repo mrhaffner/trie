@@ -3,11 +3,7 @@ from trie.standard_trie import StandardTrie
 import urllib.parse
 
 
-starting_suffixes = ["app", "apple", "apple orchard", "dog"]
-
 trie = StandardTrie(200)
-for suffix in starting_suffixes:
-    trie.insert(suffix)
 
 app = Flask(__name__)
 
@@ -38,10 +34,23 @@ def get_suffixes():
 def post_suffix():
     # responds with 400 if no suffix
     suffix = request.form["suffix"]
+    success = trie.insert(suffix)
 
-    insert_success = trie.insert(suffix)
-
-    if not insert_success:
+    if not success:
         return "", 422
 
     return jsonify({"suffix": suffix})
+
+
+@app.route("/api/trie", methods=["DELETE"])
+def delete_suffix():
+    # responds with 400 if no suffix
+    suffix = request.form["suffix"]
+    success = trie.delete(suffix)
+    
+    if not success:
+        return "", 422
+
+    return "", 204
+
+#contains

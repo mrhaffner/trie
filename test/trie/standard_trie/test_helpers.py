@@ -1,4 +1,4 @@
-from test.trie.standard_trie.test_creation import TestStandardTrieParent
+from test.trie.standard_trie.test_creation import TestStandardTrieParent, TestStandardTrieParentWithSuffixes
 from trie.standard_trie import StandardTrie
 
 
@@ -64,21 +64,11 @@ class TestStandardTrieIsValidSuffix(TestStandardTrieParent):
         self.assertTrue(self.trie._is_valid_suffix("Hello"))
 
 
-    # use patch for tests that depend on other functions?
     def test_non_hashable_suffix_is_invalid(self):
         self.assertFalse(self.trie._is_valid_suffix("&%$")) 
 
 
-class TestGetNodeFromStr(TestStandardTrieParent):
-
-    SUFFIXES = ["dog", "apple", "app", "apple orchard"]
-
-    def setUp(self) -> None:
-        super().setUp()
-
-        for suffix in TestGetNodeFromStr.SUFFIXES:
-            self.trie.insert(suffix)
-
+class TestGetNodeFromStr(TestStandardTrieParentWithSuffixes):
 
     def test_empty_str(self) -> None:
         self.assertEqual(self.trie._get_node_from_str(""), self.trie._root)

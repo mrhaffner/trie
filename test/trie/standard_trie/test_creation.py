@@ -11,6 +11,16 @@ class TestStandardTrieParent(unittest.TestCase):
         self.trie = StandardTrie(20)
 
 
+class TestStandardTrieParentWithSuffixes(TestStandardTrieParent):
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.test_suffixes = ["app", "apple", "apple orchard", "dog"]
+
+        for suffix in self.test_suffixes:
+            self.trie.insert(suffix)
+            
+
 class TestStandardTrieCreation(TestStandardTrieParent):
 
     def test_inherits_from_abstract_trie(self) -> None:

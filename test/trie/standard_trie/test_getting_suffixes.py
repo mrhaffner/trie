@@ -1,18 +1,9 @@
 from typing import List
-from test.trie.standard_trie.test_creation import TestStandardTrieParent
+from test.trie.standard_trie.test_creation import TestStandardTrieParent, TestStandardTrieParentWithSuffixes
 from trie.standard_trie import StandardTrie
 
 
-class TestGetSuffixes(TestStandardTrieParent):
-    
-    SUFFIXES = ["app", "apple", "apple orchard", "dog"]
-
-    def setUp(self) -> None:
-        super().setUp()
-
-        for suffix in TestGetSuffixes.SUFFIXES:
-            self.trie.insert(suffix)
-
+class TestGetSuffixes(TestStandardTrieParentWithSuffixes):
 
     def test_empty_trie(self) -> None:
         self.assertEqual(StandardTrie().get_suffixes("a"), [])
@@ -23,7 +14,7 @@ class TestGetSuffixes(TestStandardTrieParent):
 
 
     def test_empty_string(self) -> None:
-        test_arr = TestGetSuffixes.SUFFIXES
+        test_arr = self.test_suffixes
         self.assertEqual(self.trie.get_suffixes(""), test_arr)
 
 
@@ -46,14 +37,12 @@ class TestGetSuffixes(TestStandardTrieParent):
 
 
     def test_default_input_root(self) -> None:
-        test_arr = TestGetSuffixes.SUFFIXES
+        test_arr = self.test_suffixes
         self.assertEqual(self.trie.get_suffixes(), test_arr)
 
 
 class TestGetSuffixesFromNode(TestStandardTrieParent):
     
-    SUFFIXES = ["app", "apple", "apple orchard", "dog"]
-
     def setUp(self) -> None:
         super().setUp()
         self.node = self.trie._root
@@ -69,18 +58,18 @@ class TestGetSuffixesFromNode(TestStandardTrieParent):
 
 
     def test_single_suffix(self) -> None:
-        suffixes = [TestGetSuffixesFromNode.SUFFIXES[-1]]
+        suffixes = ["dog"]
         self.add_suffixes(suffixes)
         self.assertEqual(self.trie._get_suffixes_from_node(self.node), suffixes)
 
 
     def test_multiple_overlapping_suffixes(self) -> None:
-        suffixes = TestGetSuffixesFromNode.SUFFIXES[0:3]
+        suffixes = ["app", "apple", "apple orchard"]
         self.add_suffixes(suffixes)
         self.assertEqual(self.trie._get_suffixes_from_node(self.node), suffixes)
 
 
     def test_multiple_suffixes_from_root(self) -> None:
-        suffixes = TestGetSuffixesFromNode.SUFFIXES[2:]
+        suffixes =  ["apple orchard", "dog"]
         self.add_suffixes(suffixes)
         self.assertEqual(self.trie._get_suffixes_from_node(self.node), suffixes)

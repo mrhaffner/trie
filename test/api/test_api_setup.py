@@ -60,3 +60,10 @@ class TestApi(TestCase):
         response = self.client.get("/api/trie?prefix=a&limit=10")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, expected_reponse)
+
+
+    def test_get_empty_reponse(self):
+        expected_reponse = []
+        response = self.client.get("/api/trie?prefix=bee")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json, expected_reponse)

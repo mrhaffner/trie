@@ -22,7 +22,7 @@ Run the tests:
 $ coverage run -m unittest
 ```
 
-Get a test coverage reports:
+Get a test coverage report:
 
 ```sh
 $ coverage report -m

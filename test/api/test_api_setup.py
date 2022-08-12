@@ -3,7 +3,7 @@ from flask import Flask
 from flask_testing import TestCase
 
 
-class TestApi(TestCase):
+class TestApiParent(TestCase):
 
     def setUp(self):
         self.client = app.test_client()
@@ -17,6 +17,7 @@ class TestApi(TestCase):
         app.config['TESTING'] = True
         return app
 
+class TestSetup(TestApiParent):
 
     def test_api_base_route(self):
         response = self.client.get("/api")

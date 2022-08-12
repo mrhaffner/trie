@@ -1,14 +1,14 @@
-from test.api.test_api_setup import TestApi
+from test.api.test_api_setup import TestApiParent
 
 
-class TestTrieDelete(TestApi):
+class TestTrieDelete(TestApiParent):
 
     def test_delete_word_in_trie(self) -> None:
         delete_data = {"suffix": "dog"}
         delete_response = self.client.delete("/api/trie", data = delete_data)
         self.assertEqual(delete_response.status_code, 204)
         
-        get_response = self.client.get("api/trie?prefix=ca")
+        get_response = self.client.get("/api/trie/suggestions?prefix=ca")
         self.assertEqual(get_response.json, [])
 
 

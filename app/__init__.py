@@ -13,23 +13,6 @@ def index():
     return jsonify("Welcome to the API.")
 
 
-@app.route("/api/trie", methods=["GET"])
-def get_suffixes():
-    prefix_arg = request.args.get("prefix")
-    # if no prefix is given, return all suffixes
-    prefix = urllib.parse.unquote(prefix_arg) if prefix_arg else ""
-
-    suffixes = trie.get_suffixes(prefix)
-    limit_arg = request.args.get("limit")
-    limit = None
-
-    if limit_arg and int(limit_arg) < len(suffixes):
-        limit = int(limit_arg)
-
-    response = suffixes[0:limit] if limit else suffixes
-    return jsonify(response)
-
-
 @app.route("/api/trie", methods=["POST"])
 def post_suffix():
     # responds with 400 if no suffix
@@ -53,4 +36,19 @@ def delete_suffix():
 
     return "", 204
 
-#contains
+
+@app.route("/api/trie/suggestions", methods=["GET"])
+def get_suffixes():
+    prefix_arg = request.args.get("prefix")
+    # if no prefix is given, return all suffixes
+    prefix = urllib.parse.unquote(prefix_arg) if prefix_arg else ""
+
+    suffixes = trie.get_suffixes(prefix)
+    limit_arg = request.args.get("limit")
+    limit = None
+
+    if limit_arg and int(limit_arg) < len(suffixes):
+        limit = int(limit_arg)
+
+    response = suffixes[0:limit] if limit else suffixes
+    return jsonify(response)

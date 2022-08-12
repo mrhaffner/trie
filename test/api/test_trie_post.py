@@ -1,7 +1,7 @@
-from test.api.test_api_setup import TestApi
+from test.api.test_api_setup import TestApiParent
 
 
-class TestTriePost(TestApi):
+class TestTriePost(TestApiParent):
 
     def test_valid_suffix(self) -> None:
         post_data = {"suffix": "cat"}
@@ -9,7 +9,7 @@ class TestTriePost(TestApi):
         self.assertEqual(post_response.status_code, 200)
         self.assertEqual(post_response.json["suffix"], "cat")
         
-        get_response = self.client.get("api/trie?prefix=ca")
+        get_response = self.client.get("/api/trie/suggestions?prefix=ca")
         self.assertIn("t", get_response.json)
 
 
@@ -18,7 +18,7 @@ class TestTriePost(TestApi):
         post_response = self.client.post("/api/trie", data = post_data)
         self.assertEqual(post_response.status_code, 422)
         
-        get_response = self.client.get("api/trie?prefix=&")
+        get_response = self.client.get("/api/trie/suggestions?prefix=&")
         self.assertNotIn("~&", get_response.json)
 
 

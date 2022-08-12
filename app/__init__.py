@@ -32,3 +32,16 @@ def get_suffixes():
 
     response = suffixes[0:limit] if limit else suffixes
     return jsonify(response)
+
+
+@app.route("/api/trie", methods=["POST"])
+def post_suffix():
+    # responds with 400 if no suffix
+    suffix = request.form["suffix"]
+
+    insert_success = trie.insert(suffix)
+
+    if not insert_success:
+        return "", 422
+
+    return jsonify({"suffix": suffix})

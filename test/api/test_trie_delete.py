@@ -8,8 +8,8 @@ class TestTrieDelete(TestApiParent):
         delete_response = self.client.delete("/api/trie", data = delete_data)
         self.assertEqual(delete_response.status_code, 204)
         
-        get_response = self.client.get("/api/trie/suggestions?prefix=ca")
-        self.assertEqual(get_response.json, [])
+        get_response = self.client.get("/api/trie/?suffix=cat")
+        self.assertEqual(get_response.status_code, 404)
 
 
     def test_delete_invalid_suffix(self) -> None:

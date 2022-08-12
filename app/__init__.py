@@ -18,6 +18,7 @@ def contains_suffix():
     suffix_arg = request.args.get("suffix")
     if not suffix_arg:
         return "", 400
+    
     # if no prefix is given, return all suffixes
     suffix = urllib.parse.unquote(suffix_arg) if suffix_arg else None
 
@@ -40,7 +41,6 @@ def post_suffix():
 
     return jsonify({"suffix": suffix})
 
-# spaces!!!
 
 @app.route("/api/trie", methods=["DELETE"])
 def delete_suffix():

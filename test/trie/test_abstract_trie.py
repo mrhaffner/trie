@@ -39,3 +39,8 @@ class TestAbstractTrie(unittest.TestCase):
     def test_has_abstract_get_suffixes(self) -> None:
         with self.assertRaises(NotImplementedError):
             self.trie.get_suffixes("w")
+
+
+    def test_has_abstract_get_suffixes_with_default_arg(self) -> None:
+        with self.assertRaises(NotImplementedError):
+            self.trie.get_suffixes()

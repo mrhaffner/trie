@@ -62,8 +62,6 @@ class StandardTrie(AbstractTrie):
         try:
             for char in suffix:
                 self._hash_char(char)
-        except TypeError: # if length is not 1 
-            return False
         except ValueError: # if not a valid char
             return False
         

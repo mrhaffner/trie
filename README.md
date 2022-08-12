@@ -10,10 +10,13 @@ Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
 ## Instructions
 
-Install coverage:
+Clone the repo and setup your Python evnironment:
 
 ```sh
-$ pip3 install coverage
+$ python3.9 -m venv env
+$ python3.9 -m pip install --upgrade pip
+$ source env/bin/activate
+$ pip install -r requirements.txt
 ```
 
 Run the tests:

@@ -1,5 +1,5 @@
 from typing import List
-from test.trie.standard_trie.test_creation import TestStandardTrieParent, TestStandardTrieParentWithSuffixes
+from test.unittests.trie.standard_trie.test_creation import TestStandardTrieParent, TestStandardTrieParentWithSuffixes
 from trie.standard_trie import StandardTrie
 
 

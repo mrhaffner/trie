@@ -6,7 +6,14 @@ from typing import List
 
 
 class StandardTrie(AbstractTrie):
-    """A Trie (Suffix Tree)"""
+    """
+    A Trie (Suffix Tree)
+    Invariant:
+        1. A Trie is a tree representing a set of strings
+        2. The edges of a node represent a charater in a char set
+        3. A valid string in the trie is found by following a path from root to
+           a child node marked "is_suffix_end"
+    """
 
     SIZE_CHAR_SET = 27
 
@@ -79,7 +86,6 @@ class StandardTrie(AbstractTrie):
             space = 26
 
         Raises ValueError if char is not an english letter or a space
-        Raises TypeError if the length of char is not 1
         """
         if char == " ":
             return 26
@@ -98,6 +104,28 @@ class StandardTrie(AbstractTrie):
             return False
         else:
             return True
+
+
+    def _get_node_from_str(self, word: str) -> TrieNode:
+        """
+        Traverses this trie to get return the node at the end of word 
+            if word is in this trie
+        Returns None if the word is not a valid suffix or the word is
+            not in this trie
+        """
+        cur_node = self._root
+
+        for char in word:
+            if not self._is_valid_suffix(word):
+                return None
+                
+            hash_code = self._hash_char(char)
+            cur_node = cur_node.edges[hash_code]
+
+            if cur_node is None:
+                return cur_node
+
+        return cur_node
 
 
     def delete(self, suffix: str) -> bool:
@@ -121,28 +149,6 @@ class StandardTrie(AbstractTrie):
             return []
 
         return self._get_suffixes_from_node(node)
-
-
-    def _get_node_from_str(self, word: str) -> TrieNode:
-        """
-        Traverses this trie to get return the node at the end of word 
-            if word is in this trie
-        Returns None if the word is not a valid suffix or the word is
-            not in this trie
-        """
-        cur_node = self._root
-
-        for char in word:
-            if not self._is_valid_suffix(word):
-                return None
-                
-            hash_code = self._hash_char(char)
-            cur_node = cur_node.edges[hash_code]
-
-            if cur_node is None:
-                return cur_node
-
-        return cur_node
 
 
     def _get_suffixes_from_node(self, node: TrieNode, suffix = "", suffixes = None) -> List[str]:

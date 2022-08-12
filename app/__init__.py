@@ -7,6 +7,8 @@ trie = StandardTrie(200)
 
 app = Flask(__name__)
 
+# move to other file
+# seperate test setup
 
 @app.route("/api", methods=["GET"])
 def index() -> None:

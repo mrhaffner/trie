@@ -10,7 +10,7 @@ Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
 ## Instructions
 
-Clone the repo then setup your Python evnironment:
+Clone the repo then setup your Python environment:
 
 ```sh
 $ python3.9 -m venv env

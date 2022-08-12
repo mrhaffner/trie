@@ -10,15 +10,14 @@ app = Flask(__name__)
 
 @app.route("/api", methods=["GET"])
 def index() -> None:
-    """Return a message welcoming you to the API base route"""
+    """Returns a message welcoming you to the API base route"""
     return jsonify("Welcome to the API.")
 
 
 @app.route("/api/trie", methods=["GET"])
 def contains_suffix() -> None:
     """
-    Indicates whether the Trie contains the given suffix query string
-        with a status code
+    Indicates whether the Trie contains the given suffix with a status code
     Format: GET /api/trie?suffix=the-suffix-you-are-looking-for
     Response status codes:
         200: The Trie contains the suffix
@@ -62,7 +61,7 @@ def post_suffix() -> None:
 @app.route("/api/trie", methods=["DELETE"])
 def delete_suffix() -> None:
     """
-    Deletes a suffix from, the Trie
+    Deletes a suffix from the Trie
     JSON DELETE format: {"suffix": "the-suffix-you-want-to-delete"}
     Response status codes:
         204: The suffix was deleted from the Trie
@@ -82,7 +81,7 @@ def delete_suffix() -> None:
 def get_suggestions() -> None:
     """
     Returns all possible suffixes for a given prefix in a JSON list
-    Format: GET /api/trie/suggestions?prefix=the-suffix-you-are-looking-for
+    Format: GET /api/trie/suggestions?prefix=the-prefix-you-are-looking-for
             GET /api/trie/suggestions (prefix = "", returns all suffixes in the Trie)
     Response status codes:
         200: Indicates a successful retrieval (including no suggestions)

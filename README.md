@@ -19,6 +19,16 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
+In order to run the functional tests you will need Google Chrome installed and a Chrome webdriver matching your Chrome browser version (If you update your browser, you will will need to update your chromedriver!). You can download the webdriver here:
+[Chrome Webdrivers](https://chromedriver.chromium.org/downloads)
+
+You will need to follow the installation instructions for your specific operating system. If you are using a MacOS:
+
+```sh
+$ mv path/to/your/unzipped/chromedriver /usr/local/bin
+$ xattr -d com.apple.quarantine /usr/local/bin/chromedriver
+```
+
 Run the tests:
 
 ```sh

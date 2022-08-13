@@ -48,7 +48,10 @@ def post_suffix() -> None:
         400: A suffix arguement was not given
         422: The suffix was not added to the Trie (invalid suffix)
     """
-    suffix = request.form["suffix"]
+    suffix = request.form["suffix"] if "suffix" in request.form else None
+    if suffix is None:
+        return "", 400
+
     success = trie.insert(suffix)
 
     if success:
@@ -67,7 +70,10 @@ def delete_suffix() -> None:
         400: A suffix arguement was not given
         422: The suffix was not deleted from the Trie (suffix invalid or not in trie)
     """
-    suffix = request.form["suffix"]
+    suffix = request.form["suffix"] if "suffix" in request.form else None
+    if suffix is None:
+        return "", 400
+
     success = trie.delete(suffix)
     
     if not success:

@@ -1,4 +1,4 @@
-from test.unittests.trie.standard_trie.test_creation import TestStandardTrieParentWithSuffixes
+from test.trie.standard_trie.test_creation import TestStandardTrieParentWithSuffixes
 
 
 class TestDelete(TestStandardTrieParentWithSuffixes):

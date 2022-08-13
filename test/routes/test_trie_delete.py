@@ -1,4 +1,4 @@
-from test.api.test_api_setup import TestApiParent
+from test.routes.test_route_setup import TestApiParent
 
 
 class TestTrieDelete(TestApiParent):

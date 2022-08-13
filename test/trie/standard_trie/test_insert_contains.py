@@ -1,4 +1,4 @@
-from test.unittests.trie.standard_trie.test_creation import TestStandardTrieParent
+from test.trie.standard_trie.test_creation import TestStandardTrieParent
 
 
 class TestStandardTrieInsertAndContains(TestStandardTrieParent):

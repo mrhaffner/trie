@@ -19,6 +19,14 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
+Run the Flask app:
+
+```sh
+$ export FLASK_APP=app
+$ export FLASK_DEBUG=1
+$ flask run
+```
+
 In order to run the functional tests you will need Google Chrome installed and a Chrome webdriver matching your Chrome browser version (If you update your browser, you will will need to update your chromedriver!). You can download the webdriver here:
 [Chrome Webdrivers](https://chromedriver.chromium.org/downloads)
 
@@ -29,7 +37,7 @@ $ mv path/to/your/unzipped/chromedriver /usr/local/bin
 $ xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 ```
 
-Run the tests:
+Run the tests (the app will need to be running for functional tests):
 
 ```sh
 $ coverage run -m unittest

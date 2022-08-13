@@ -1,3 +1,4 @@
+import time
 import unittest
 
 from app import trie
@@ -31,7 +32,18 @@ class TestWebapge(unittest.TestCase):
         self.browser.set_window_size(1024, 768)
         searchbar = self.browser.find_element(By.ID, "search-input")
         self.assertAlmostEqual(
-            searchbar.location['x'] + searchbar.size['width'] / 2,
+            searchbar.location["x"] + searchbar.size["width"] / 2,
             1008 / 2,
             delta=10
         )
+
+
+    def test_search_yields_correct_suggestions(self):
+        self.browser.get(self.base_url)
+        searchbar = self.browser.find_element(By.ID, "search-input")
+        searchbar.send_keys("ap")
+        # wait for
+        time.sleep(1)
+        suggestions = self.browser.find_elements(By.CLASS_NAME, "auto-suggetion")
+        suggestions_text = [suggestion.text for suggestion in suggestions]
+        self.assertEqual(["app", "apple", "apple_orchard"], suggestions_text)

@@ -1,4 +1,4 @@
-from app import app, trie
+from app import create_app, trie
 from flask import Flask
 from flask_testing import TestCase
 
@@ -6,7 +6,7 @@ from flask_testing import TestCase
 class TestApiParent(TestCase):
 
     def setUp(self):
-        self.client = app.test_client()
+        self.client = create_app().test_client()
         self.starting_suffixes = ["app", "apple", "apple orchard", "dog"]
         for suffix in self.starting_suffixes:
             trie.insert(suffix)

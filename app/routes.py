@@ -1,14 +1,19 @@
 import urllib.parse
 
 from app import trie
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, render_template, request
 
 
 bp = Blueprint("api", __name__)
 
 
+@bp.route("/", methods=["GET"])
+def web_view() -> None:
+    return render_template("index.html")
+
+
 @bp.route("/api", methods=["GET"])
-def index() -> None:
+def api_index() -> None:
     """Returns a message welcoming you to the API base route"""
     return jsonify("Welcome to the API.")
 

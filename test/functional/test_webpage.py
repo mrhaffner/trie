@@ -1,20 +1,11 @@
-import multiprocessing
+import unittest
 
-from app import create_app, trie
-from flask_testing import LiveServerTestCase
+from app import trie
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
-class TestWebapge(LiveServerTestCase):
-
-    def create_app(self):
-        # need this on unix, otherwise LiverServerTestCase will not work
-        multiprocessing.set_start_method("fork")
-        app = create_app()
-        app.config['TESTING'] = True
-        return app
-
+class TestWebapge(unittest.TestCase):
 
     def setUp(self):
         self.starting_suffixes = ["app", "apple", "apple orchard", "dog"]
@@ -22,7 +13,7 @@ class TestWebapge(LiveServerTestCase):
             trie.insert(suffix)
 
         self.browser = webdriver.Chrome()
-        self.url = "http://127.0.0.1:5000/api"
+        self.base_url = "http://127.0.0.1:5000/"
 
     
     def tearDown(self):
@@ -30,6 +21,17 @@ class TestWebapge(LiveServerTestCase):
 
 
     def test_api_loads(self):
-        self.browser.get(self.url)
+        self.browser.get(self.base_url + "api")
         element = self.browser.find_element(By.TAG_NAME, "pre")
         self.assertEqual(element.text, "\"Welcome to the API.\"")
+
+
+    def test_layout_and_styling(self):
+        self.browser.get(self.base_url)
+        self.browser.set_window_size(1024, 768)
+        searchbar = self.browser.find_element(By.ID, "search-input")
+        self.assertAlmostEqual(
+            searchbar.location['x'] + searchbar.size['width'] / 2,
+            1008 / 2,
+            delta=10
+        )

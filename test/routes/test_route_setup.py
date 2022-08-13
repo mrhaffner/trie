@@ -14,8 +14,9 @@ class TestApiParent(TestCase):
 
     def create_app(self):
         app = Flask(__name__)
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         return app
+
 
 class TestSetup(TestApiParent):
 

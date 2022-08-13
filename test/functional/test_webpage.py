@@ -3,13 +3,15 @@ import unittest
 
 from app import trie
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
 
 class TestWebapge(unittest.TestCase):
 
     def setUp(self):
-        self.starting_suffixes = ["app", "apple", "apple orchard", "dog"]
+        self.starting_suffixes = ["app", "apple", "apple orchard", "dog"] 
+        self.starting_suffixes += ["z" * i for i in range(2, 16)]
         for suffix in self.starting_suffixes:
             trie.insert(suffix)
 
@@ -21,6 +23,10 @@ class TestWebapge(unittest.TestCase):
         self.browser.quit()
 
 
+    def get_suggestions(self):
+        return self.browser.find_elements(By.CLASS_NAME, "auto-suggetion")
+
+
     def test_api_loads(self):
         self.browser.get(self.base_url + "api")
         element = self.browser.find_element(By.TAG_NAME, "pre")
@@ -28,22 +34,69 @@ class TestWebapge(unittest.TestCase):
 
 
     def test_layout_and_styling(self):
+        # Marge visits the webpage and notices a nice centered search bar.
         self.browser.get(self.base_url)
         self.browser.set_window_size(1024, 768)
-        searchbar = self.browser.find_element(By.ID, "search-input")
+        searchbar = self.browser.find_element(By.ID, "trie-search-bar")
         self.assertAlmostEqual(
             searchbar.location["x"] + searchbar.size["width"] / 2,
-            1008 / 2,
+            1008 / 2, # magic number represents screen actual width
             delta=10
         )
 
+        # Interested, she moves her mouse over it. Marge notices the search
+        # bar appears to come to life!.
+        ActionChains(self.browser).move_to_element(searchbar).perform()
+        self.assertFalse(searchbar.value_of_css_property("box-shadow") is None)
 
-    def test_search_yields_correct_suggestions(self):
+
+    def test_search_bar_behavior(self):
+        # Marge visits the webpage exited to try out the search bar.
         self.browser.get(self.base_url)
-        searchbar = self.browser.find_element(By.ID, "search-input")
-        searchbar.send_keys("ap")
-        # wait for
-        time.sleep(1)
-        suggestions = self.browser.find_elements(By.CLASS_NAME, "auto-suggetion")
+        searchbar = self.browser.find_element(By.ID, "trie-search-bar")
+        h1 = self.browser.find_element(By.TAG_NAME, "h1")
+        input = self.browser.find_element(By.ID, "search-input")
+
+        # Marge decides to click on the searchbar, notices it comes to life, but there 
+        # are no search suggestions yet
+        searchbar.click()
+        self.assertIn("search-bar-active", searchbar.get_attribute("class"))
+        suggestions = self.get_suggestions()
+        self.assertTrue(len(suggestions) == 0)
+
+        # Marge decides to type in a word and notices a list of good suggestions appear
+        input.send_keys("ap")
+        suggestions = self.get_suggestions()
         suggestions_text = [suggestion.text for suggestion in suggestions]
         self.assertEqual(["app", "apple", "apple_orchard"], suggestions_text)
+
+        # Marge deletes the word she entered and notices the suggestions disappear
+        input.clear() 
+        suggestions = self.get_suggestions()
+        self.assertTrue(len(suggestions) == 0)
+
+        # Marge trie a new search and notices the list of suggestions never grows beyond 10
+        input.send_keys("z")
+        suggestions = self.get_suggestions()
+        self.assertTrue(len(suggestions) == 10)
+
+        # Marge clicks outside the searchbar and notices here search suggestions dissappeared
+        # and the search bar itself goes back to normal
+        h1.click()
+        suggestions = self.get_suggestions()
+        self.assertTrue(len(suggestions) == 0)
+        self.assertNotIn("search-bar-active", searchbar.get_attribute("class"))
+
+        # Panicked, Marge clicks back on the searchbar. She is relieved to find her
+        # suggestions have returned
+        searchbar.click()
+        suggestions = self.get_suggestions()
+        self.assertTrue(len(suggestions) == 10)
+
+        # She adds another letter to her search making a typo and notices the 
+        # suggestions disappear
+        input.send_keys("zb")
+        suggestions = self.get_suggestions()
+        self.assertTrue(len(suggestions) == 0)
+
+        # debounce?

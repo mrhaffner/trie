@@ -19,12 +19,25 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
-Run the Flask app:
+Run the Flask app for testing:
 
 ```sh
 $ export FLASK_APP=app
 $ export FLASK_DEBUG=1
 $ flask run
+```
+
+Setup your Javascript testing environment (note this is not necessary for the application to work):
+
+```sh
+$ npm install
+```
+
+You will need to uncomment the "require" and "module.exports" lines in your script.js file for the unittests to run (the actual app will not work with these uncommented!).
+Run the Javascript unittests:
+
+```sh
+$ npm test
 ```
 
 In order to run the functional tests you will need Google Chrome installed and a Chrome webdriver matching your Chrome browser version (If you update your browser, you will will need to update your chromedriver!). You can download the webdriver here:
@@ -37,7 +50,8 @@ $ mv path/to/your/unzipped/chromedriver /usr/local/bin
 $ xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 ```
 
-Run the tests (the app will need to be running for functional tests):
+You will need to comment the "require" and "module.exports" lines in your script.js file for the functional tests to run. The Flask app will also need to be running for the functional tests to work.
+Run the Python tests:
 
 ```sh
 $ coverage run -m unittest

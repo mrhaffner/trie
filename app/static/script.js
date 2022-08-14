@@ -1,4 +1,4 @@
-// const $ = require('jquery');
+const $ = require('jquery');
 
 ('use strict');
 
@@ -27,4 +27,4 @@ async function getSuggestions(prefix, uri) {
   }
 }
 
-// module.exports = { getSuggestions, main };
+module.exports = { getSuggestions, main };

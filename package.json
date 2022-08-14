@@ -1,29 +1,10 @@
 {
   "devDependencies": {
-    "@types/jest": "^28.1.6",
     "jest": "^28.1.3",
-    "ts-jest": "^28.0.7",
-    "typescript": "^4.7.4"
-  },
-  "name": "trie",
-  "description": "Exploring and optimizing search suggestions with Trie (Prefix Tree)",
-  "version": "1.0.0",
-  "main": "jest.config.js",
-  "directories": {
-    "test": "test"
+    "jest-environment-jsdom": "^28.1.3",
+    "jquery": "^3.6.0"
   },
   "scripts": {
     "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mrhaffner/trie.git"
-  },
-  "keywords": [],
-  "author": "Matt Haffner",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mrhaffner/trie/issues"
-  },
-  "homepage": "https://github.com/mrhaffner/trie#readme"
+  }
 }

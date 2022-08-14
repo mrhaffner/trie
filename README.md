@@ -34,6 +34,7 @@ $ npm install
 ```
 
 You will need to uncomment the "require" and "module.exports" lines in your script.js file for the unittests to run (the actual app will not work with these uncommented!).
+
 Run the Javascript unittests:
 
 ```sh
@@ -51,6 +52,7 @@ $ xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 ```
 
 You will need to comment the "require" and "module.exports" lines in your script.js file for the functional tests to run. The Flask app will also need to be running for the functional tests to work.
+
 Run the Python tests:
 
 ```sh

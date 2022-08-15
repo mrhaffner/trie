@@ -1,5 +1,6 @@
 (() => {
   const testUri = 'http://127.0.0.1:5000/api/trie/suggestions?limit=10&prefix=';
+  const liveUri = 'http://mrhaffner.pythonanywhere.com/api/trie/suggestions?limit=10&prefix=';
 
   const arrayToSuggestionsLIs = (suggestions) => {
     return suggestions.map((suggestion) => {
@@ -36,7 +37,7 @@
       return;
     }
 
-    const response = await fetch(`${testUri}${encodeURI(prefix)}`);
+    const response = await fetch(`${liveUri}${encodeURI(prefix)}`);
     const suffixes = await response.json();
     const suggestions = suffixes.map((suffix) => prefix + suffix);
 

@@ -1,6 +1,8 @@
 import json
 
 from flask import Flask
+from flask_cors import CORS
+from pathlib import Path
 from trie.standard_trie import StandardTrie
 
 
@@ -17,7 +19,8 @@ def functional_testing_setup():
 
 def live_setup():
     """Adds all suffixes from search_terms.json to the Trie"""
-    with open("search_terms.json", "r") as f:
+    path = Path(__file__).parent.parent.joinpath("search_terms.json")
+    with open(path, "r") as f:
         terms = json.loads(f.read())
         for term in terms:
             trie.insert(term["term"])
@@ -33,6 +36,7 @@ def create_app(live_server = True):
         full set of search_terms to the Trie.
     """
     app = Flask(__name__)
+    CORS(app)
 
     from app.routes import bp
 
@@ -45,3 +49,4 @@ def create_app(live_server = True):
 
     return app
 
+app = create_app()

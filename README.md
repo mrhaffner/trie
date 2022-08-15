@@ -2,6 +2,12 @@
 
 Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
+Version 1.0.0 is live:
+
+http://mrhaffner.pythonanywhere.com/
+
+Further releases will include graphics and optimization of the search suggestions engine.
+
 ## Purpose
 
 - Practice Test Driven Development (TDD)

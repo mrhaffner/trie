@@ -7,7 +7,7 @@ from typing import List
 
 class StandardTrie(AbstractTrie):
     """
-    A Trie (Suffix Tree)
+    A Trie (Prefix Tree)
     Invariant:
         1. A Trie is a tree representing a set of strings
         2. The edges of a node represent a charater in a char set

@@ -216,10 +216,6 @@ ul > * {
   width: 450px;
 }
 
-.auto-suggestion {
-  width: 450px;
-}
-
 .search {
   width: 450px;
   padding: 0px;
@@ -248,4 +244,8 @@ ul > * {
 
 .search-container {
   margin: 24px 0px;
+}
+
+.suggestion {
+  width: 450px;
 }

@@ -19,11 +19,11 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
-Run the Flask app for testing:
+Run the Flask app for testing (default FLASK_DEBUG=false for production):
 
 ```sh
 $ export FLASK_APP=app
-$ export FLASK_DEBUG=1
+$ export FLASK_DEBUG=true
 $ flask run
 ```
 
@@ -37,7 +37,7 @@ $ mv path/to/your/unzipped/chromedriver /usr/local/bin
 $ xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 ```
 
-For the functional tests to work, the Flask app will need to be running.
+For the functional tests to work, the Flask app will need to be running in debug mode.
 
 Run the Python tests:
 

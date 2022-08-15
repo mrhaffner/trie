@@ -9,6 +9,7 @@ bp = Blueprint("api", __name__)
 
 @bp.route("/", methods=["GET"])
 def web_view() -> None:
+    """This is our one and only webpage"""
     return render_template("index.html")
 
 

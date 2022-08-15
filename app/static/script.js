@@ -93,7 +93,3 @@
     }
   });
 })();
-
-// create cache, check cache before sending request to API
-// should not make requests if there are character(s) and already no suggestions
-// show the speed with which things were fetched

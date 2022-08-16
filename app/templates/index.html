@@ -13,17 +13,38 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ url_for('static', filename='apple-touch-icon.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ url_for('static', filename='favicon-32x32.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ url_for('static', filename='favicon-16x16.png') }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ url_for('static', filename='site.webmanifest') }}"
+    />
   </head>
   <body>
-    <header><h1>Implementing Search Suggestions with a Trie</h1></header>
+    <header><h1>Implementing Autocomplete with a Trie</h1></header>
     <section>
       <h2>Introduction</h2>
       <div>
         <p>
           Selecting an efficient method to find search suggestions presents a
-          unique challenge. This challenge is best overcome with a Trie a.k.a.
-          Prefix tree. We can see a simple implementation with the following
-          search bar:
+          unique challenge. This challenge is efficiently handled with a Trie
+          a.k.a. Prefix Tree. We can see a simple implementation with the
+          following search bar:
         </p>
       </div>
       <div class="search-container">
@@ -57,22 +78,34 @@
       <!-- Talk about hashing vs ? -->
       <!-- Selection of charset, alphabeticizing things -->
       <p>
-        This implementation is efficient. Suggestions are found in O(H*C) time.
-        "H" represents the height of the Trie. "C" represents the character set
-        the Trie supports. Since "C" is limited, it is therefore a constant. The
-        time becomes O(H). The height of the Trie is the same as the length of
-        its longest suggestion. It is not neccesary to support strings of a
-        potentially unlimited length. Most searches are short, so we can set a
-        reasonable max height for our Trie. "H" is now a constant so the find
-        operation runs in constant time. Deletions and inserts are done in O(H)
-        time which reduces to O(1).
+        This implementation is efficient. Suggestions are found in O(P+H*C*N)
+        time. "P" represents the length of the prefix that we are trying to get
+        suggestions for. "H" represents the height of the subtree of the Trie we
+        are trying to get suggestions from. This is the length of the longest
+        suffix in the subtree. "C" represents the character set the Trie
+        supports. In our implementation, the character set is 26 English letters
+        + 1 (space).
       </p>
       <p>
-        The Trie will find all suggestions for our given prefix. This presents
-        our first problem - we do not want to show a large number of
-        suggestions. In this implementation, an external service selects and
-        displays the first 10 suggestions in alphabetical order. Do we want
-        suggestions filtered on alphabetical order?
+        It is not neccesary to support strings of a potentially unlimited
+        length. Most searches are short, so we can set a reasonable max height
+        for our Trie. In our implementation, we chose 200 for the max length of
+        a word in the Trie. Since "P", "H" and "C" are constants, retrieving
+        autocomplete suggestions is done in O(N) time.
+      </p>
+      <p>
+        Deletions and insertions are done in O(H) time which reduces to O(1).
+        The main drawback of the Trie is the large amount of memory that is used
+        given. Every node has a number of children equal to the size of the
+        character set. Generally, most of the children of a given node will be
+        null pointers.
+      </p>
+      <p>
+        The Trie will find all suggestions for our given prefix. One feature of
+        the Trie is that all suggestions will be ouput in alphabetical order. We
+        will need to limit the suggestions we show. But how do we choose which
+        suggestions to show? Alphabetical order is not likely the most relevant.
+        Stay tuned to find out more!
       </p>
     </section>
     <script src="{{ url_for('static', filename='script.js') }}"></script>

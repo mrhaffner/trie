@@ -2,7 +2,7 @@
 
 Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
-Version 1.0.1 is live:
+Version 1.1.0 is live:
 
 http://mrhaffner.pythonanywhere.com/
 

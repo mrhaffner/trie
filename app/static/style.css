@@ -130,6 +130,17 @@ table {
 }
 /* End reset */
 
+a {
+  color: rgb(60, 60, 60);
+  text-decoration-color: #a2dffb;
+  color: #0089c7;
+}
+
+a:hover,
+a:focus {
+  opacity: 0.66;
+}
+
 body,
 input {
   color: rgb(60, 60, 60);
@@ -155,6 +166,10 @@ figcaption {
   text-align: center;
 }
 
+h1 {
+  margin-bottom: 10px;
+}
+
 h1,
 h2 {
   font-weight: 700;
@@ -172,6 +187,10 @@ h2 {
 
 header {
   margin: 50px 0px;
+}
+
+header > p {
+  margin: 0;
 }
 
 input {

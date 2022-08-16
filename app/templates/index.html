@@ -51,7 +51,9 @@
     <div id="content-wrapper">
       <header>
         <h1>Implementing Autocomplete with Trie</h1>
-        <p>By Matt Haffner</p>
+        <p>Matt Haffner</p>
+          <a href="https://github.com/mrhaffner/trie">Project Repository</a>
+        </p>
       </header>
       <section>
         <h2>A Basic Trie</h2>
@@ -59,8 +61,22 @@
           <p>
             Selecting an efficient method to find search suggestions presents a
             unique challenge. This challenge is efficiently handled with a Trie
-            a.k.a. Prefix Tree. We can see a simple implementation with the
-            following search bar:
+            a.k.a. Prefix Tree. A Trie is a specialized tree where each child
+            node represents a character. 
+          </p>
+          <p>A word in the Trie is indicated by
+            following a path from the root to a node that is marked as being the
+            end of a word. The location of a child node on it's parent node's
+            edges is used to determine what character the child node represents
+            with a hash function. A null pointer indicates no children exist in
+            the Trie for that given character.</p>
+          <p>
+            Due to the large number of edges, representing a Trie visually can
+            be space intensize. Here is a small Trie containg the words: "i",
+            "its", and "a":
+          </p>
+          <p>
+            We can see a simple implementation with the following search bar:
           </p>
         </div>
         <div class="search-container">
@@ -92,18 +108,21 @@
         <p>
           This implementation is efficient. Suggestions are found in O(P+H*C*N)
           time. "P" represents the length of the prefix that we are trying to
-          get suggestions for. "H" represents the height of the subtree of the
-          Trie we are trying to get suggestions from. This is the length of the
-          longest suffix in the subtree. "C" represents the character set the
-          Trie supports. In our implementation, the character set is 26 English
-          letters + 1 (space).
+          get suggestions for. "H" represents the height of the subtree we are
+          trying to get suggestions from. This is the length of the longest
+          suffix in the subtree. "C" represents the character set the Trie
+          supports. In our implementation, the character set is 26 English
+          letters + 1 space character. "N" represents the number of suffixes the
+          subtree contains.
         </p>
         <p>
           It is not neccesary to support strings of a potentially unlimited
           length. Most searches are short, so we can set a reasonable max height
           for our Trie. In our implementation, we chose 200 for the max length
           of a word in the Trie. Since "P", "H" and "C" are constants,
-          retrieving autocomplete suggestions is done in O(N) time.
+          retrieving autocomplete suggestions is done in O(N) time. ("N" is also
+          technically limited by the character set, although with a much higher
+          limit)
         </p>
         <p>
           Deletions and insertions are done in O(H) time which reduces to O(1).

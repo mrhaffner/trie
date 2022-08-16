@@ -2,7 +2,7 @@
 
 Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
-Version 1.1.1 is live:
+Version 1.2.1 is live:
 
 http://mrhaffner.pythonanywhere.com/
 
@@ -43,7 +43,7 @@ $ mv path/to/your/unzipped/chromedriver /usr/local/bin
 $ xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 ```
 
-For the functional tests to work, the Flask app will need to be running in debug mode.
+For the functional tests to work, the Flask app will need to be running in debug mode. You will also need to change the "apiUri" in script.js by commenting the live uri and uncommenting the test uri.
 
 Run the Python tests:
 

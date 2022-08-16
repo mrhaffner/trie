@@ -13,6 +13,8 @@ class TestApiParent(TestCase):
         
 
     def create_app(self):
+        for suffix in trie.get_suffixes():
+            trie.delete(suffix)
         app = Flask(__name__)
         app.config["TESTING"] = True
         return app

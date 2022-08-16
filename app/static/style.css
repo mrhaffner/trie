@@ -1,6 +1,6 @@
-/* 
+/*
 CSS Reset
-http://meyerweb.com/eric/tools/css/reset/ 
+http://meyerweb.com/eric/tools/css/reset/
 v2.0 | 20110126
 License: none (public domain)
 */
@@ -132,18 +132,13 @@ table {
 
 body,
 input {
-  color: rgb(41, 41, 41);
-  font-family: 'Roboto', sans-serif;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 16px;
-  font-weight: 400px;
+  color: rgb(60, 60, 60);
+  font-family: 'Lora', serif;
+  font-weight: 400;
 }
 
 body {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 100px;
 }
 
@@ -155,21 +150,24 @@ figcaption {
   color: rgb(117, 117, 117);
   font-size: 16px;
   margin-top: 10px;
+  margin-left: -20px;
+  margin-right: -20px;
   text-align: center;
 }
 
 h1,
 h2 {
-  text-align: center;
+  font-weight: 700;
+  font-family: 'Rubik', sans-serif;
+  letter-spacing: -0.016em;
 }
 
 h1 {
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 32px;
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 header {
@@ -178,6 +176,7 @@ header {
 
 input {
   border: none;
+  font-size: 20px;
   outline: none;
 }
 
@@ -188,15 +187,13 @@ p {
   word-break: break-word;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 692px;
+ul > * {
+  padding-bottom: 10px;
 }
 
-ul > * {
-  margin-bottom: 10px;
+#content-wrapper {
+  margin: auto;
+  max-width: 692px;
 }
 
 .auto-complete {
@@ -207,24 +204,37 @@ ul > * {
   border-top: none;
   box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
   clip-path: inset(0px -8px -8px -8px);
-  padding: 0px 20px 8px 20px;
+  padding-bottom: 8px;
   position: absolute;
+  width: -webkit-calc(100% - 2px);
+  width: -moz-calc(100% - 2px);
+  width: calc(100% - 2px);
+  overflow: hidden;
+}
+
+.search-container {
+  margin: auto;
+  padding: 24px 0px;
+  width: 492px;
+  position: relative;
+}
+
+.auto-line,
+.search,
+.suggestion {
+  display: block;
+  width: 90%;
+  margin: auto;
 }
 
 .auto-line {
   border-top: 1px solid lightgrey;
   margin-bottom: 10px;
-  width: 450px;
-}
-
-.search {
-  width: 450px;
-  padding: 0px;
 }
 
 .search-bar {
   background-color: white;
-  padding: 8px 20px;
+  padding: 8px 0;
   border: 1px solid lightgrey;
   border-radius: 24px;
 }
@@ -243,10 +253,28 @@ ul > * {
   border-bottom: none;
 }
 
-.search-container {
-  margin: 24px 0px;
-}
+@media (max-width: 735.98px) {
+  h2 {
+    font-size: 20px;
+  }
 
-.suggestion {
-  width: 450px;
+  input,
+  li,
+  p {
+    font-size: 18px;
+  }
+
+  p {
+    letter-spacing: -0.003em;
+    line-height: 28px;
+  }
+
+  #content-wrapper {
+    margin: 0 24px;
+    max-width: none;
+  }
+
+  .search-container {
+    width: 100%;
+  }
 }

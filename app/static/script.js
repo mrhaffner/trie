@@ -1,6 +1,7 @@
 (() => {
-  const testUri = 'http://127.0.0.1:5000/api/trie/suggestions?limit=10&prefix=';
-  const liveUri = 'http://mrhaffner.pythonanywhere.com/api/trie/suggestions?limit=10&prefix=';
+  // const apiUri = 'http://127.0.0.1:5000/api/trie/suggestions?limit=10&prefix=';
+  const apiUri =
+    'http://mrhaffner.pythonanywhere.com/api/trie/suggestions?limit=10&prefix=';
 
   const arrayToSuggestionsLIs = (suggestions) => {
     return suggestions.map((suggestion) => {
@@ -37,7 +38,7 @@
       return;
     }
 
-    const response = await fetch(`${liveUri}${encodeURI(prefix)}`);
+    const response = await fetch(`${apiUri}${encodeURI(prefix)}`);
     const suffixes = await response.json();
     const suggestions = suffixes.map((suffix) => prefix + suffix);
 
@@ -47,7 +48,7 @@
       return;
     }
 
-    suggestionsParent.children[1]?.remove(); // susceptible to breaking on change of url structure
+    suggestionsParent.children[1]?.remove(); // susceptible to breaking on change of ul structure
     let ul = document.createElement('ul');
     suggestionsParent.append(ul);
 

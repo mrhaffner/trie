@@ -2,12 +2,23 @@
 <html lang="en-US">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
     <title>Trie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -37,78 +48,79 @@
     />
   </head>
   <body>
-    <header><h1>Implementing Autocomplete with a Trie</h1></header>
-    <section>
-      <h2>Introduction</h2>
-      <div>
+    <div id="content-wrapper">
+      <header>
+        <h1>Implementing Autocomplete with Trie</h1>
+        <p>By Matt Haffner</p>
+      </header>
+      <section>
+        <h2>A Basic Trie</h2>
+        <div>
+          <p>
+            Selecting an efficient method to find search suggestions presents a
+            unique challenge. This challenge is efficiently handled with a Trie
+            a.k.a. Prefix Tree. We can see a simple implementation with the
+            following search bar:
+          </p>
+        </div>
+        <div class="search-container">
+          <form id="trie-form">
+            <div id="trie-search-bar" class="search-bar">
+              <input
+                id="search-input"
+                class="search"
+                maxlength="2048"
+                type="text"
+                name="search"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                autofocus
+                spellcheck="false"
+                title="Search"
+                value=""
+              />
+            </div>
+            <div id="suggestions" class="auto-complete" hidden>
+              <div class="auto-line"></div>
+            </div>
+          </form>
+          <figcaption>
+            Try me! (<b>Warning:</b> Some suggestions are NSFW)
+          </figcaption>
+        </div>
         <p>
-          Selecting an efficient method to find search suggestions presents a
-          unique challenge. This challenge is efficiently handled with a Trie
-          a.k.a. Prefix Tree. We can see a simple implementation with the
-          following search bar:
+          This implementation is efficient. Suggestions are found in O(P+H*C*N)
+          time. "P" represents the length of the prefix that we are trying to
+          get suggestions for. "H" represents the height of the subtree of the
+          Trie we are trying to get suggestions from. This is the length of the
+          longest suffix in the subtree. "C" represents the character set the
+          Trie supports. In our implementation, the character set is 26 English
+          letters + 1 (space).
         </p>
-      </div>
-      <div class="search-container">
-        <form id="trie-form">
-          <div id="trie-search-bar" class="search-bar">
-            <input
-              id="search-input"
-              class="search"
-              maxlength="2048"
-              type="text"
-              name="search"
-              autocapitalize="off"
-              autocomplete="off"
-              autocorrect="off"
-              autofocus
-              spellcheck="false"
-              title="Search"
-              value=""
-            />
-          </div>
-          <div id="suggestions" class="auto-complete" hidden>
-            <div class="auto-line"></div>
-          </div>
-        </form>
-        <figcaption>
-          Try me! (<b>Warning:</b> Some suggestions are NSFW)
-        </figcaption>
-      </div>
-      <!-- Space complexity? -->
-      <!-- Graphic? -->
-      <!-- Talk about hashing vs ? -->
-      <!-- Selection of charset, alphabeticizing things -->
-      <p>
-        This implementation is efficient. Suggestions are found in O(P+H*C*N)
-        time. "P" represents the length of the prefix that we are trying to get
-        suggestions for. "H" represents the height of the subtree of the Trie we
-        are trying to get suggestions from. This is the length of the longest
-        suffix in the subtree. "C" represents the character set the Trie
-        supports. In our implementation, the character set is 26 English letters
-        + 1 (space).
-      </p>
-      <p>
-        It is not neccesary to support strings of a potentially unlimited
-        length. Most searches are short, so we can set a reasonable max height
-        for our Trie. In our implementation, we chose 200 for the max length of
-        a word in the Trie. Since "P", "H" and "C" are constants, retrieving
-        autocomplete suggestions is done in O(N) time.
-      </p>
-      <p>
-        Deletions and insertions are done in O(H) time which reduces to O(1).
-        The main drawback of the Trie is the large amount of memory that is used
-        given. Every node has a number of children equal to the size of the
-        character set. Generally, most of the children of a given node will be
-        null pointers.
-      </p>
-      <p>
-        The Trie will find all suggestions for our given prefix. One feature of
-        the Trie is that all suggestions will be ouput in alphabetical order. We
-        will need to limit the suggestions we show. But how do we choose which
-        suggestions to show? Alphabetical order is not likely the most relevant.
-        Stay tuned to find out more!
-      </p>
-    </section>
+        <p>
+          It is not neccesary to support strings of a potentially unlimited
+          length. Most searches are short, so we can set a reasonable max height
+          for our Trie. In our implementation, we chose 200 for the max length
+          of a word in the Trie. Since "P", "H" and "C" are constants,
+          retrieving autocomplete suggestions is done in O(N) time.
+        </p>
+        <p>
+          Deletions and insertions are done in O(H) time which reduces to O(1).
+          The main drawback of the Trie is the large amount of memory that is
+          used given. Every node has a number of children equal to the size of
+          the character set. Generally, most of the children of a given node
+          will be null pointers.
+        </p>
+        <p>
+          The Trie will find all suggestions for our given prefix. One feature
+          of the Trie is that all suggestions will be ouput in alphabetical
+          order. We will need to limit the suggestions we show. But how do we
+          choose which suggestions to show? Alphabetical order is not likely the
+          most relevant. Stay tuned to find out more!
+        </p>
+      </section>
+    </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>
 </html>

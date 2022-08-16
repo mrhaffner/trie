@@ -1,4 +1,3 @@
-from typing import List
 import unittest
 
 from trie.trie_node import TrieNode
@@ -22,3 +21,8 @@ class TestTrieNode(unittest.TestCase):
 
     def test_is_suffix_end_starts_false(self) -> None:
         self.assertFalse(self.node.is_suffix_end)
+
+
+    def test_edges_cannot_be_negative(self) -> None:
+        with self.assertRaises(ValueError):
+            TrieNode(-1)

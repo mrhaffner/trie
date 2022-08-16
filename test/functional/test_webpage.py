@@ -1,27 +1,11 @@
 import time
-import unittest
 
-from app import trie
-from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from test.functional.base import FunctionalTest
 
 
-class TestWebapge(unittest.TestCase):
-
-    def setUp(self):
-        self.starting_suffixes = ["app", "apple", "apple orchard", "dog"] 
-        self.starting_suffixes += ["z" * i for i in range(2, 16)]
-        for suffix in self.starting_suffixes:
-            trie.insert(suffix)
-
-        self.browser = webdriver.Chrome()
-        self.base_url = "http://127.0.0.1:5000/"
-
-    
-    def tearDown(self):
-        self.browser.quit()
-
+class TestWebpage(FunctionalTest):
 
     def get_suggestions(self):
         return self.browser.find_elements(By.CLASS_NAME, "suggestion")
@@ -106,5 +90,3 @@ class TestWebapge(unittest.TestCase):
         time.sleep(1)
         suggestions = self.get_suggestions()
         self.assertTrue(suggestions_list.get_attribute("hidden"))
-
-        # debounce?

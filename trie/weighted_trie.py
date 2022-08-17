@@ -11,9 +11,17 @@ class SuffixEntry(TypedDict):
 
 
 class WeightedTrie(StandardTrie):
-    
+    """
+    A Weighted Trie is a variant of a Trie with weighted nodes.
+    The Weighted Trie differs in that:
+        1. A valid string in the trie is found by following a path from root to
+            a child node with weight > 0
+        2. Gettings suffixes returns output sorted descending by weight
+        3. Due to the sorting of suffixes, getting suffixes from a Weighted Trie is 
+           slower than from a Standard Trie
+    """
+
     def __init__(self, max_depth: int = math.inf) -> None:
-        pass
         if max_depth < 0:
             raise ValueError("max_depth must be a positive integer")
 
@@ -28,6 +36,12 @@ class WeightedTrie(StandardTrie):
 
 
     def insert(self, suffix_dict: SuffixEntry) -> bool:
+        """
+        Inserting a suffix that already exists in this trie will update its weight.
+        Adding a suffix with weight less than 1 will may add nodes to this trie, but it
+            will not exist as a valid suffix in this trie. If that suffix already exits
+            in this trie, it will effectively delete it.
+        """
         suffix = suffix_dict["suffix"]
         weight = suffix_dict["weight"]
 
@@ -91,17 +105,21 @@ class WeightedTrie(StandardTrie):
 
 
     def get_suffixes(self, prefix: str = "") -> List[str]:
+        """Output is sorted ascending by weight"""
         node = self._get_node_from_str(prefix)
         
         if node is None:
             return []
 
         suffix_dicts = self._get_suffixes_from_node(node)
-        suffix_dicts.sort(reverse=True, key=lambda d: d["weight"]) # and by alphabet?
+        suffix_dicts.sort(reverse=True, key=lambda d: d["weight"])
         return [d["suffix"] for d in suffix_dicts]
 
 
     def _get_suffixes_from_node(self, node: WeightedTrieNode, suffix = "", suffixes = None) -> List[SuffixEntry]:
+        """
+        Returns an array of all suffix entries from a given root node.
+        """
         if suffixes is None:
             suffixes = []
 

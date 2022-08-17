@@ -153,7 +153,7 @@ class StandardTrie(AbstractTrie):
 
     def _get_suffixes_from_node(self, node: TrieNode, suffix = "", suffixes = None) -> List[str]:
         """
-        Returns an array of all suffixes from a given root node
+        Returns an array of all suffixes from a given root node.
         """
         if suffixes is None:
             suffixes = []

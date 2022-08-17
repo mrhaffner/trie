@@ -24,12 +24,10 @@ class TestWeightedTrieParentWithSuffixes(TestWeightedTrieParent):
 
 class TestWeightedTrieCreation(TestWeightedTrieParent):
 
-    # or is it a sublcass of standard trie?
     def test_inherits_from_abstract_trie(self) -> None:
         self.assertTrue(issubclass(WeightedTrie, AbstractTrie))
 
 
-    # or is it a sublcass of standard trie?
     # will raise error from instantion if abstract methods are not implemented
     def test_implements_abstract_methods(self) -> None:
         WeightedTrie()

@@ -73,11 +73,22 @@
             pointer indicates no children exist in the Trie for that given
             character.
           </p>
-          <!-- <p>
+          <p>
             Due to the large number of edges, representing a Trie visually can
-            be space intensize. Here is a small Trie containg the words: "i",
-            "its", and "a":
-          </p> -->
+            be space intensize. Consider a Trie with a character set containing
+            only the letters "a", "b" and "c". "a" hashes to index 0, "b" to 1
+            and "c" to 2. This Trie contains the suffixes: "a", "abc" and "ca".
+            The root node represents the empty string which all Tries will
+            contain by default. Witness this Trie:
+          </p>
+          <div class="image-container">
+            <img
+              src="{{ url_for('static', filename='trie.jpg') }}"
+              alt="A Trie"
+            />
+            <figcaption>A Trie with a small character set</figcaption>
+          </div>
+
           <p>
             We can see a simple implementation with the following search bar:
           </p>
@@ -88,7 +99,7 @@
               <input
                 id="search-input"
                 class="search"
-                maxlength="2048"
+                maxlength="200"
                 type="text"
                 name="search"
                 autocapitalize="off"
@@ -133,7 +144,7 @@
           null pointers. The maximum size of a Trie is (C^(H+1)-1)/(C-1). For
           our implementation, C=27 and H=200 which gives us a maximum size of
           1.9 x 10^286 nodes. That is a very large constant. Without a fixed
-          height or character set, the size of a Trie is O(C^(H+1)).
+          height or character set, the size of a Trie is O(C^H).
         </p>
         <p>
           The Trie will find all suggestions for our given prefix. One feature
@@ -163,7 +174,7 @@
               <input
                 id="weighted-search-input"
                 class="search"
-                maxlength="2048"
+                maxlength="200"
                 type="text"
                 name="search"
                 autocapitalize="off"
@@ -188,11 +199,17 @@
           Trie, except now results will be sorted.
         </p>
         <p>
-          Sorting results does slow down getting suggestions. Sorting operates
-          in O(N log N) time. "N" represents the number of suffixes that match
-          our prefix. The number of suffixes found is limited by the maximum
-          number of nodes that our Trie may contain. The preformance hit is well
-          worth the benefit of drastically enhanced user experience.
+          Sorting our suggestions does slow down retrieval. We use Timsort - the
+          default sorting algorithm in Python. Timesort is a good choice because
+          the algorithm is stable. This means that it will automatically keep
+          alphabetical ordering after sorting by weight.
+        </p>
+        <p>
+          Timsort operates in O(N log N) time. "N" represents the number of
+          suffixes that match our prefix. The number of suffixes found is
+          limited by the maximum number of nodes that our Trie may contain. The
+          preformance hit is well worth the benefit of drastically enhanced user
+          experience.
         </p>
         <p>
           Now that our Trie is showing more relevant suggestions. What can we do

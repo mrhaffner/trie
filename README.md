@@ -6,7 +6,7 @@ Version 2.1.1 is live:
 
 http://mrhaffner.pythonanywhere.com/
 
-Further releases will include graphics and optimization of the search suggestions engine.
+Further releases will include optimization of the search suggestions engine with explanations.
 
 ## Purpose
 

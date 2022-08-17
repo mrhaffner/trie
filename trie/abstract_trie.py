@@ -3,7 +3,7 @@ from typing import List
 
 
 class AbstractTrie(ABC):
-    """An abstract Trie (Preix Tree)"""
+    """An abstract Trie (Prreix Tree)"""
 
     @abstractmethod
     def insert(self, suffix: str) -> bool:

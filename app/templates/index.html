@@ -147,11 +147,11 @@
           height or character set, the size of a Trie is O(C^H).
         </p>
         <p>
-          The Trie will find all suggestions for our given prefix. One feature
-          of the Trie is that all suggestions will be ouput in alphabetical
-          order. We will need to limit the suggestions we show. But how do we
-          choose which suggestions to show? Alphabetical order is not likely the
-          most relevant.
+          The Trie will find all suggestions for our given prefix. We will need
+          to limit the suggestions we show. One feature of the Trie is that all
+          suggestions will be ouput in alphabetical order. Alphabetical order is
+          not likely the most relevant. But how do we choose which suggestions
+          to show?
         </p>
       </section>
       <section>
@@ -200,9 +200,10 @@
         </p>
         <p>
           Sorting our suggestions does slow down retrieval. We use Timsort - the
-          default sorting algorithm in Python. Timesort is a good choice because
+          default sorting algorithm in Python. Timsort is a good choice because
           the algorithm is stable. This means that it will automatically keep
-          alphabetical ordering after sorting by weight.
+          the previously existing alphabetical ordering after sorting by weight
+          for items of equal weight.
         </p>
         <p>
           Timsort operates in O(N log N) time. "N" represents the number of

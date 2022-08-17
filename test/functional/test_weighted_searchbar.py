@@ -17,7 +17,7 @@ class TestWeightedTrieSearchBar(FunctionalTest):
     def test_weighted_search_bar_behavior(self) -> None:
         # Marge visits the webpage exited to try out the search bar.
         self.browser.get(self.base_url)
-        searchbar = self.browser.find_element(By.ID, "weighted-trie-search-bar")
+        searchbar = self.browser.find_element(By.ID, "trie-weighted-search-bar")
         h1 = self.browser.find_element(By.TAG_NAME, "h1")
         input = self.browser.find_element(By.ID, "weighted-search-input")
         suggestions_list = self.browser.find_element(By.ID, "weighted-suggestions")

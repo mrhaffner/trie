@@ -150,7 +150,7 @@ input {
 
 body {
   font-size: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 150px;
 }
 
 b {
@@ -186,7 +186,7 @@ h2 {
 }
 
 header {
-  margin: 50px 0px;
+  margin-top: 50px;
 }
 
 header > p {
@@ -204,6 +204,10 @@ p {
   line-height: 30px;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+section {
+  margin-top: 50px;
 }
 
 ul > * {

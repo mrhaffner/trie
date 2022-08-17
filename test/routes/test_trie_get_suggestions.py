@@ -58,9 +58,11 @@ class TestWeightedTrieGet(TestWeightedApiParent):
     BASE_URL = "/api/weighted-trie/suggestions"
 
     def test_trie_get_all(self) -> None:
+        expected = ["dog", "apple", "app", "apple orchard"]
+        expected += ["z" * i for i in range(2, 16)]
         response = self.client.get(TestWeightedTrieGet.BASE_URL)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json, ["dog", "apple", "app", "apple orchard"])
+        self.assertEqual(response.json, expected)
 
 
     def test_trie_get_from_prefix(self) -> None:
@@ -78,7 +80,7 @@ class TestWeightedTrieGet(TestWeightedApiParent):
 
 
     def test_get_with_shorter_limit(self) -> None:
-        expected_reponse = ["pp"]
+        expected_reponse = ["pple"]
         response = self.client.get(TestWeightedTrieGet.BASE_URL + "?prefix=a&limit=1")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, expected_reponse)

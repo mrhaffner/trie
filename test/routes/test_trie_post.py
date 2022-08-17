@@ -45,7 +45,7 @@ class TestWeightedTriePost(TestWeightedApiParent):
     def test_invalid_weight(self) -> None:
         post_data = {"suffix": "cat", "weight": "apple"}
         post_response = self.client.post("/api/weighted-trie", data = post_data)
-        self.assertEqual(post_response.status_code, 422)
+        self.assertEqual(post_response.status_code, 400)
 
 
     def test_no_suffix(self) -> None:

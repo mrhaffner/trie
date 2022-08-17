@@ -1,4 +1,4 @@
-from test.routes.test_route_setup import TestApiParent
+from test.routes.base import TestApiParent
 
 
 class TestTriePost(TestApiParent):

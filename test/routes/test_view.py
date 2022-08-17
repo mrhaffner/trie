@@ -1,4 +1,4 @@
-from app import create_app, trie
+from app import create_app
 from flask import Flask
 from flask_testing import TestCase
 
@@ -7,9 +7,6 @@ class TestView(TestCase):
 
     def setUp(self):
         self.client = create_app(False).test_client()
-        self.starting_suffixes = ["app", "apple", "apple orchard", "dog"]
-        for suffix in self.starting_suffixes:
-            trie.insert(suffix)
         
 
     def create_app(self):

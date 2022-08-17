@@ -129,6 +129,11 @@ class StandardTrie(AbstractTrie):
 
 
     def delete(self, suffix: str) -> bool:
+        """
+        This implementation of delete marks the end of the suffix to False.
+        This could potentially leave extra unused nodes in the Trie.  This 
+        implementation therefore gains speed by sacrificing space.
+        """
         # cannot delete empty string
         if suffix == "":
             return False

@@ -49,7 +49,7 @@ class TestStandardTrieHashChar(TestStandardTrieParent):
             self.trie._hash_char("~")
 
 
-    def test_uppcase_letter_converts_to_lower(self) -> None:
+    def test_uppercase_letter_converts_to_lower(self) -> None:
         self.assertEqual(self.trie._hash_char("A"), 0)
         self.assertEqual(self.trie._hash_char("Z"), 25)
 

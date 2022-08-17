@@ -1,7 +1,7 @@
 (() => {
-  // const apiUri = 'http://127.0.0.1:5000/api/trie/suggestions?limit=10&prefix=';
-  const apiUri =
-    'http://mrhaffner.pythonanywhere.com/api/trie/suggestions?limit=10&prefix=';
+  const apiUri = 'http://127.0.0.1:5000/api/trie/suggestions?limit=10&prefix=';
+  // const apiUri =
+  //   'http://mrhaffner.pythonanywhere.com/api/trie/suggestions?limit=10&prefix=';
 
   const arrayToSuggestionsLIs = (suggestions) => {
     return suggestions.map((suggestion) => {

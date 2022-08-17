@@ -23,16 +23,6 @@ class TestTrieNode(unittest.TestCase):
         self.assertTrue(self.node.weight == 0)
 
 
-    def test_can_set_weight(self) -> None:
-        node = WeightedTrieNode(3, 1)
-        self.assertTrue(node.weight == 1)
-
-
-    def test_weight_cannot_be_negative(self) -> None:
-        with self.assertRaises(ValueError):
-            WeightedTrieNode(3, -1)
-
-
     def test_edges_cannot_be_negative(self) -> None:
         with self.assertRaises(ValueError):
             WeightedTrieNode(-1)

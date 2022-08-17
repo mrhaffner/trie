@@ -176,7 +176,7 @@ class StandardTrie(AbstractTrie):
 
     def _reverse_hash_char(self, index: int) -> str:
         """
-        Converts and returns a char based by unhashing an edges index
+        Converts and returns a char by unhashing an edges index
         Example outputs:
             0 = a
             ...

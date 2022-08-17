@@ -52,6 +52,7 @@
       <header>
         <h1>Implementing Autocomplete with Trie</h1>
         <p>By Matt Haffner</p>
+        <p>
           <a href="https://github.com/mrhaffner/trie">Project Repository</a>
         </p>
       </header>
@@ -62,14 +63,16 @@
             Selecting an efficient method to find search suggestions presents a
             unique challenge. This challenge is efficiently handled with a Trie
             a.k.a. Prefix Tree. A Trie is a specialized tree where each child
-            node represents a character. 
+            node represents a character.
           </p>
-          <p>A word in the Trie is indicated by
-            following a path from the root to a node that is marked as being the
-            end of a word. The location of a child node on it's parent node's
-            edges is used to determine what character the child node represents
-            with a hash function. A null pointer indicates no children exist in
-            the Trie for that given character.</p>
+          <p>
+            A word in the Trie is indicated by following a path from the root to
+            a node that is marked as being the end of a word. The location of a
+            child node on it's parent node's edges is used to determine what
+            character the child node represents with a hash function. A null
+            pointer indicates no children exist in the Trie for that given
+            character.
+          </p>
           <!-- <p>
             Due to the large number of edges, representing a Trie visually can
             be space intensize. Here is a small Trie containg the words: "i",
@@ -91,7 +94,6 @@
                 autocapitalize="off"
                 autocomplete="off"
                 autocorrect="off"
-                autofocus
                 spellcheck="false"
                 title="Search"
                 value=""
@@ -112,8 +114,8 @@
           trying to get suggestions from. This is the length of the longest
           suffix in the subtree. "C" represents the character set the Trie
           supports. In our implementation, the character set is 26 English
-          letters + 1 space character = 27. "N" represents the number of suffixes the
-          subtree contains.
+          letters + 1 space character = 27. "N" represents the number of
+          suffixes the subtree contains.
         </p>
         <p>
           It is not neccesary to support strings of a potentially unlimited
@@ -121,17 +123,17 @@
           for our Trie. In our implementation, we chose 200 for the max length
           of a word in the Trie. Since "P", "H" and "C" are constants,
           retrieving autocomplete suggestions is done in O(N) time. "N" is also
-          technically limited by the max size of the trie. Deletions and insertions 
-          are done in O(H) time which reduces to O(1).
+          technically limited by the max size of the trie. Deletions and
+          insertions are done in O(H) time which reduces to O(1).
         </p>
         <p>
           The main drawback of the Trie is the large amount of memory that is
-          used. Every node has a number of children equal to the size of
-          the character set. Generally, most of the children of a given node
-          will be null pointers.  The maximum size of a Trie is (C^(H+1)-1)/(C-1).
-          For our implementation, C=27 and H=200 which gives us a maximum size of
-          1.9 x 10^286 nodes.  That is a very large constant.  Without a fixed height
-          or character set, the size of a Trie is O(C^(H+1)).
+          used. Every node has a number of children equal to the size of the
+          character set. Generally, most of the children of a given node will be
+          null pointers. The maximum size of a Trie is (C^(H+1)-1)/(C-1). For
+          our implementation, C=27 and H=200 which gives us a maximum size of
+          1.9 x 10^286 nodes. That is a very large constant. Without a fixed
+          height or character set, the size of a Trie is O(C^(H+1)).
         </p>
         <p>
           The Trie will find all suggestions for our given prefix. One feature
@@ -144,19 +146,17 @@
       <section>
         <h2>A Weighted Trie</h2>
         <p>
-          We can make some simple modifications to our Trie to add a weight to each 
-          suffix. People will generally be looking for the most commonly searched 
-          terms. Therefore, the weight of a node will represent how often that 
-          term has appeared in searches.
+          We can make some simple modifications to our Trie to add a weight to
+          each suffix. People will generally be looking for the most commonly
+          searched terms. Therefore, the weight of a node will represent how
+          often that term has appeared in searches.
         </p>
         <p>
-          The new weight property will also serve to
-          determine if a node is the end of a suffix. Nodes with a weight 1 or 
-          greater represent the end of a suffix. 
+          The new weight property will also serve to determine if a node is the
+          end of a suffix. Nodes with a weight 1 or greater represent the end of
+          a suffix.
         </p>
-        <p>
-          Try the new search bar and compare the results from the original:
-        </p>
+        <p>Try the new search bar and compare the results from the original:</p>
         <div class="search-container">
           <form id="trie-weighted-form">
             <div id="trie-weighted-search-bar" class="search-bar">
@@ -169,7 +169,6 @@
                 autocapitalize="off"
                 autocomplete="off"
                 autocorrect="off"
-                autofocus
                 spellcheck="false"
                 title="Search"
                 value=""
@@ -184,20 +183,20 @@
           </figcaption>
         </div>
         <p>
-          We see that suggestions are now sorted in descending order based on weight.
-          This Weighted Trie acts almost identically to the original Trie, except
-          now results will be sorted.
+          We see that suggestions are now sorted in descending order based on
+          weight. This Weighted Trie acts almost identically to the original
+          Trie, except now results will be sorted.
         </p>
         <p>
-          Sorting results does slow down getting suggestions.
-          Sorting operates in O(N log N) time. "N" represents the number of suffixes
-          that match our prefix. The number of suffixes found is limited by the
-          maximum number of nodes that our Trie may contain.  The preformance hit is well
+          Sorting results does slow down getting suggestions. Sorting operates
+          in O(N log N) time. "N" represents the number of suffixes that match
+          our prefix. The number of suffixes found is limited by the maximum
+          number of nodes that our Trie may contain. The preformance hit is well
           worth the benefit of drastically enhanced user experience.
         </p>
         <p>
-          Now that our Trie is showing more relevant suggestions.  What can we do to improve
-          performance? Stay tuned to find out!
+          Now that our Trie is showing more relevant suggestions. What can we do
+          to improve performance? Stay tuned to find out!
         </p>
       </section>
     </div>

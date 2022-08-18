@@ -25,6 +25,13 @@ class TestTrieGet(TestApiParent):
         self.assertEqual(response.json, expected_reponse)
 
 
+    def test_trie_get_with_valid_prefix(self) -> None:
+        expected_reponse = ["", " orchard"]
+        response = self.client.get(TestTrieGet.BASE_URL + "?prefix=apple")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json, expected_reponse)
+
+
     def test_get_with_shorter_limit(self) -> None:
         expected_reponse = ["pp"]
         response = self.client.get(TestTrieGet.BASE_URL + "?prefix=a&limit=1")

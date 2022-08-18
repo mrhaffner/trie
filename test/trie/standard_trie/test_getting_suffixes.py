@@ -28,7 +28,7 @@ class TestGetSuffixes(TestStandardTrieParentWithSuffixes):
 
 
     def test_multiple_overlapping(self) -> None:
-        test_arr = ["le", "le orchard"]
+        test_arr = ["", "le", "le orchard"]
         self.assertEqual(self.trie.get_suffixes("app"), test_arr)
 
 
@@ -73,3 +73,14 @@ class TestGetSuffixesFromNode(TestStandardTrieParent):
         suffixes =  ["apple orchard", "dog"]
         self.add_suffixes(suffixes)
         self.assertEqual(self.trie._get_suffixes_from_node(self.node), suffixes)
+
+
+    def test_gets_empty_str_from_start_node_when_suffix(self) -> None:
+        suffixes = ["app", "apple"]
+        self.add_suffixes(suffixes)
+        node = self.trie._get_node_from_str("app")
+        self.assertEqual(self.trie._get_suffixes_from_node(node), ["", "le"])
+
+
+    def test_does_not_get_empty_str_from_root(self) -> None:
+        self.assertEqual(self.trie._get_suffixes_from_node(self.node), [])

@@ -164,7 +164,7 @@ class StandardTrie(AbstractTrie):
             suffixes = []
 
         # do not add "" to suffixes
-        if node.is_suffix_end and suffix != "":
+        if node.is_suffix_end and node != self._root:
             suffixes.append(suffix)
 
         for idx, node in enumerate(node.edges):

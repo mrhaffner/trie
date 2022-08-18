@@ -30,7 +30,7 @@ class TestTrieSearchBar(FunctionalTest):
         self.assertTrue(len(suggestions) == 0)
 
         # Marge decides to type in a word and notices a list of good suggestions appear.
-        input.send_keys("a")
+        input.send_keys("app")
         time.sleep(1)
         suggestions = self.get_suggestions()
         suggestions_text = [suggestion.text for suggestion in suggestions]

@@ -95,8 +95,9 @@
             add the character value of the next node until we reach a node
             marked as the end of a valid suffix. We then add this word to the
             output. Since "a" itself is a valid suffix represented as the empty
-            string, the output is: ["", "bc"]. We can then merge this result
-            with the given prefix to give: ["a", "abc"].
+            string, the output is: ["", "bc"]. Depending on our autocomplete
+            implementation, we could merge this result with the given prefix to
+            give: ["a", "abc"].
           </p>
           <p>
             If we were to perform a search on the Trie with the prefix "", we
@@ -229,6 +230,12 @@
           limited by the maximum number of nodes that our Trie may contain. The
           preformance hit is well worth the benefit of drastically enhanced user
           experience.
+        </p>
+        <p>
+          We have made one adjustment to sorting by weight. If a search prefix
+          is itself a valid result, that result will always appear at the top of
+          the results. Depending on your use case, this may or may not be a good
+          choice. Google does not do this.
         </p>
         <p>
           Now that our Trie is showing more relevant suggestions. What can we do

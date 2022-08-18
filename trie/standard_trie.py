@@ -13,6 +13,7 @@ class StandardTrie(AbstractTrie):
         2. The edges of a node represent a charater in a char set
         3. A valid string in the trie is found by following a path from root to
            a child node marked "is_suffix_end"
+    Raises ValueError if max_depth is negative.
     """
 
     SIZE_CHAR_SET = 27

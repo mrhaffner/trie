@@ -88,7 +88,23 @@
             />
             <figcaption>A Trie with a small character set</figcaption>
           </div>
-
+          <p>
+            We want to use this Trie to get autocomplete suggestions for the
+            prefix "a". We start by navigating to the "a" node. We will then
+            perform a depth first search on all child nodes. As we search, we
+            add the character value of the next node until we reach a node
+            marked as the end of a valid suffix. We then add this word to the
+            output. Since "a" itself is a valid suffix represented as the empty
+            string, the output is: ["", "bc"]. We can then merge this result
+            with the given prefix to give: ["a", "abc"].
+          </p>
+          <p>
+            If we were to perform a search on the Trie with the prefix "", we
+            would get as a result all valid suffixes in the Trie. In this case,
+            we choose to ignore the root of the Trie as a result. We get: ["a",
+            "abc", "ca"]. Note that our results appear in alphabetical order -
+            ie in the order they are hashed.
+          </p>
           <p>
             We can see a simple implementation with the following search bar:
           </p>
@@ -119,12 +135,12 @@
           </figcaption>
         </div>
         <p>
-          This implementation is efficient. Suggestions are found in O(P+H*C*N)
-          time. "P" represents the length of the prefix that we are trying to
-          get suggestions for. "H" represents the height of the subtree we are
-          trying to get suggestions from. This is the length of the longest
-          suffix in the subtree. "C" represents the character set the Trie
-          supports. In our implementation, the character set is 26 English
+          This implementation is efficient. Suggestions are found in
+          O(P+H&times;C&times;N) time. "P" represents the length of the prefix
+          that we are trying to get suggestions for. "H" represents the height
+          of the subtree we are trying to get suggestions from. This is the
+          length of the longest suffix in the subtree. "C" represents the
+          character set the Trie supports. Our character set is 26 English
           letters + 1 space character = 27. "N" represents the number of
           suffixes the subtree contains.
         </p>
@@ -135,16 +151,18 @@
           of a word in the Trie. Since "P", "H" and "C" are constants,
           retrieving autocomplete suggestions is done in O(N) time. "N" is also
           technically limited by the max size of the trie. Deletions and
-          insertions are done in O(H) time which reduces to O(1).
+          insertions are done in O(S). "S" is the length of the suffix which is
+          at most the max height of the Trie. This become O(1).
         </p>
         <p>
           The main drawback of the Trie is the large amount of memory that is
           used. Every node has a number of children equal to the size of the
           character set. Generally, most of the children of a given node will be
-          null pointers. The maximum size of a Trie is (C^(H+1)-1)/(C-1). For
-          our implementation, C=27 and H=200 which gives us a maximum size of
-          1.9 x 10^286 nodes. That is a very large constant. Without a fixed
-          height or character set, the size of a Trie is O(C^H).
+          null pointers. The maximum size of a Trie is
+          (C<sup>(H+1)</sup>-1)/(C-1). For our implementation, C=27 and H=200
+          which gives us a maximum size of 1.9&times;10<sup>286</sup> nodes.
+          That is a very large constant. Without a fixed height or character
+          set, the size of a Trie is O(C<sup>H</sup>).
         </p>
         <p>
           The Trie will find all suggestions for our given prefix. We will need

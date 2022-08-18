@@ -1,5 +1,3 @@
-import math
-
 from typing import List
 from test.trie.weighted_trie.test_creation import TestWeightedTrieParent, TestWeightedTrieParentWithSuffixes
 from trie.weighted_trie import WeightedTrie
@@ -30,7 +28,7 @@ class TestWeightedGetSuffixes(TestWeightedTrieParentWithSuffixes):
 
 
     def test_multiple_overlapping(self) -> None:
-        test_arr = ["", "le", "le orchard"]
+        test_arr = ["le", "", "le orchard"]
         self.assertEqual(self.trie.get_suffixes("app"), test_arr)
 
 
@@ -76,13 +74,6 @@ class TestGetSuffixesFromNode(TestWeightedTrieParent):
         suffixes = [{"suffix": "app", "weight": 5}, {"suffix": "dog", "weight": 4}]
         self.add_suffixes(suffixes)
         self.assertEqual(self.trie._get_suffixes_from_node(self.node), suffixes)
-
-
-    def test_gets_empty_str_from_start_node_when_suffix(self) -> None:
-        suffixes = [{"suffix": "app", "weight": 3}, {"suffix": "apple", "weight": 4}]
-        self.add_suffixes(suffixes)
-        node = self.trie._get_node_from_str("app")
-        self.assertEqual(self.trie._get_suffixes_from_node(node), [{"suffix": "", "weight": math.inf}, {"suffix": "le", "weight": 4}])
 
 
     def test_does_not_get_empty_str_from_root(self) -> None:

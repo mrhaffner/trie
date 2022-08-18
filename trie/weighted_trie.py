@@ -16,7 +16,9 @@ class WeightedTrie(StandardTrie):
     The Weighted Trie differs in that:
         1. A valid string in the trie is found by following a path from root to
             a child node with weight > 0
-        2. Gettings suffixes returns output sorted descending by weight
+        2. Gettings suffixes returns output sorted descending by weight.
+           If a given prefix is itself a valid suffix, the empty string will
+           appear as a valid suffix (but not for _root).
         3. Due to the sorting of suffixes, getting suffixes from a Weighted Trie is 
            slower than from a Standard Trie
     """
@@ -125,10 +127,7 @@ class WeightedTrie(StandardTrie):
 
         # do not add "" to suffixes
         if node.weight > 0 and node != self._root:
-            # math.inf ensures that if a prefix is a valid suffix it will always appear at 
-            # the beggining of the list suffixes list once sorted
-            weight = math.inf if suffix == "" else node.weight
-            suffixes.append({"suffix": suffix, "weight": weight})
+            suffixes.append({"suffix": suffix, "weight": node.weight})
 
         for idx, node in enumerate(node.edges):
             if node:

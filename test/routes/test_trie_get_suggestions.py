@@ -87,7 +87,7 @@ class TestWeightedTrieGet(TestWeightedApiParent):
 
 
     def test_trie_get_with_valid_prefix(self) -> None:
-        expected_reponse = ["", "le", "le orchard"]
+        expected_reponse = ["le", "", "le orchard"]
         response = self.client.get(TestWeightedTrieGet.BASE_URL + "?prefix=app")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, expected_reponse)

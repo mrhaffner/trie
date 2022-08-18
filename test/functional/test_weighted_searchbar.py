@@ -35,7 +35,7 @@ class TestWeightedTrieSearchBar(FunctionalTest):
         time.sleep(1)
         suggestions = self.get_suggestions()
         suggestions_text = [suggestion.text for suggestion in suggestions]
-        self.assertEqual(["app", "apple", "apple orchard"], suggestions_text)
+        self.assertEqual(["apple", "app", "apple orchard"], suggestions_text)
 
         # Marge deletes the word she entered and notices the suggestions disappear.
         input.send_keys("p")

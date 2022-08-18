@@ -1,4 +1,4 @@
-class WeightedTrieNode():
+class WeightedTrieNode:
     """
     A Node in a Weighted Trie (Suffix Tree)
     edges represents this node's child nodes
@@ -7,7 +7,7 @@ class WeightedTrieNode():
     Raises ValueError if length_edges is negative
     """
 
-    def __init__(self, length_edges):
+    def __init__(self, length_edges) -> None:
         if length_edges < 0:
             raise ValueError("length_edges cannot be negative")
         self.edges = [None] * length_edges

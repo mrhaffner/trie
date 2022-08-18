@@ -31,11 +31,11 @@ class TestWeightedTrieSearchBar(FunctionalTest):
 
         # Marge decides to type in a word and notices a list of good suggestions appear 
         # this time sorted by weight.
-        input.send_keys("a")
+        input.send_keys("app")
         time.sleep(1)
         suggestions = self.get_suggestions()
         suggestions_text = [suggestion.text for suggestion in suggestions]
-        self.assertEqual(["apple", "app", "apple orchard"], suggestions_text)
+        self.assertEqual(["app", "apple", "apple orchard"], suggestions_text)
 
         # Marge deletes the word she entered and notices the suggestions disappear.
         input.send_keys("p")

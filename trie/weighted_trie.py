@@ -124,8 +124,11 @@ class WeightedTrie(StandardTrie):
             suffixes = []
 
         # do not add "" to suffixes
-        if node.weight > 0 and suffix != "":
-            suffixes.append({"suffix": suffix, "weight": node.weight})
+        if node.weight > 0 and node != self._root:
+            # math.inf ensures that if a prefix is a valid suffix it will always appear at 
+            # the beggining of the list suffixes list once sorted
+            weight = math.inf if suffix == "" else node.weight
+            suffixes.append({"suffix": suffix, "weight": weight})
 
         for idx, node in enumerate(node.edges):
             if node:

@@ -2,11 +2,11 @@
 
 Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
-Version 2.2.1 is live:
+Version 3.0.0 is live:
 
 http://mrhaffner.pythonanywhere.com/
 
-Further releases will include optimization of the search suggestions engine with explanations.
+Further releases will include optimization of the search suggestions engine with explanations. I also plan to refactor the script.js file because it is terrible.
 
 ## Purpose
 
@@ -23,6 +23,15 @@ $ python3.9 -m venv env
 $ python3.9 -m pip install --upgrade pip
 $ source env/bin/activate
 $ pip install -r requirements.txt
+```
+
+You will need a search_terms.json file to populate your Tries in non-debug mode. I scraped a large list of top search suggestions. The format for the JSON file is:
+
+```sh
+[
+    {"term": "facebook", "hits": 1},
+    {"term": "youtube", "hits": 5}
+]
 ```
 
 Run the Flask app for testing (default FLASK_DEBUG=false for production):

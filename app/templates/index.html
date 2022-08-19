@@ -60,10 +60,10 @@
         <h2>A Basic Trie</h2>
         <div>
           <p>
-            Selecting an efficient method to find search suggestions presents a
-            unique challenge. This challenge is efficiently handled with a Trie
-            a.k.a. Prefix Tree. A Trie is a specialized tree where each child
-            node represents a character.
+            Selecting an efficient method to find autocomplete suggestions
+            presents a unique challenge. This challenge is efficiently handled
+            with a Trie a.k.a. Prefix Tree. A Trie is a specialized tree where
+            each child node represents a character.
           </p>
           <p>
             A word in the Trie is indicated by following a path from the root to
@@ -141,19 +141,24 @@
           that we are trying to get suggestions for. "H" represents the height
           of the subtree we are trying to get suggestions from. This is the
           length of the longest suffix in the subtree. "C" represents the
-          character set the Trie supports. Our character set is 26 English
-          letters + 1 space character = 27. "N" represents the number of
-          suffixes the subtree contains.
+          character set the Trie supports. "N" represents the number of paths
+          from the root node of our subtree to all of its leaves. "N" is not the
+          same as the number of suffixes in the subtree as suffixes may overlap.
         </p>
         <p>
-          It is not neccesary to support strings of a potentially unlimited
-          length. Most searches are short, so we can set a reasonable max height
-          for our Trie. In our implementation, we chose 200 for the max length
-          of a word in the Trie. Since "P", "H" and "C" are constants,
-          retrieving autocomplete suggestions is done in O(N) time. "N" is also
-          technically limited by the max size of the trie. Deletions and
-          insertions are done in O(S). "S" is the length of the suffix which is
-          at most the max height of the Trie. This become O(1).
+          In our implementation, all of the variables are constants. We will
+          however, give big O notations as if they weren not. It is not
+          neccesary to support strings of a potentially unlimited length. Most
+          searches are short, so we can set a reasonable max height for our
+          Trie. In our implementation, we chose 200 for the max length of a word
+          in the Trie. This max length limits length of "P" and "H".
+        </p>
+        <p>
+          Our character set, "C", is 26 English letters + 1 space character =
+          27. "N" is also technically limited by the max height of the trie.
+          Deletions and insertions are done in O(S) time. "S" is the length of
+          the suffix which is at most the max height of the Trie. This become
+          O(1).
         </p>
         <p>
           The main drawback of the Trie is the large amount of memory that is
@@ -225,18 +230,26 @@
           for items of equal weight.
         </p>
         <p>
-          Timsort operates in O(N log N) time. "N" represents the number of
-          suffixes that match our prefix. The number of suffixes found is
+          Timsort operates in O(N&times;log(N)) time. "N" represents the number
+          of suffixes that match our prefix. The number of suffixes found is
           limited by the maximum number of nodes that our Trie may contain. The
           preformance hit is well worth the benefit of drastically enhanced user
           experience.
         </p>
         <p>
-          Now that our Trie is showing more relevant suggestions. What can we do
-          to improve performance? Stay tuned to find out!
+          Now that our Trie is showing more relevant suggestions, what can we do
+          to improve performance?
         </p>
       </section>
       <section>
+        <h2>A Cached Trie</h2>
+        <p>
+          Traversing the entire subtree from the end of a given prefix everytime
+          we want suggestions is undesirable. We can significantly improve
+          performance by generating a cache of suggestions for every node in the
+          Trie.
+        </p>
+        <p>Suggestions are now found in O(S) time. Try our new search bar:</p>
         <div class="search-container">
           <form id="trie-cached-form">
             <div id="trie-cached-search-bar" class="search-bar">
@@ -262,7 +275,44 @@
             Try me! (<b>Warning:</b> Some suggestions are NSFW)
           </figcaption>
         </div>
+        <p>
+          Creating a cache for every node will amplify memory use. Fortunately,
+          it is not neccesary to store a potentially unlimited sized cache. This
+          increases our memory usage by a small constant: "L".
+        </p>
+        <p>
+          Caching also creates a performance trade off. Insertions and deletions
+          from the Trie will now need to update the cache for every affected
+          node. For every character in the suffix, we will need to gather all
+          valid suffixes, sort and truncate them. What took place in O(S) time
+          now takes O(S&times;H&times;C&times;N&times;L&times;log(L)) time. This
+          represents a significant performance hit.
+        </p>
+        <p>
+          To give you an idea of the performance hit. We insert 5,334 scraped
+          suggestions into all three Tries. The original Trie takes 0.08 seconds
+          to insert all entries. The Weighted Trie takes 0.10 seconds. While I
+          am writing this, I am still waiting on the Cached Trie to finish...
+          The Cached Trie took 173.57 seconds. That is 1735.7 times slower!
+        </p>
+        <p>
+          Insertions and deletions will generally be rare outside of building
+          the Trie. Depending on your implementation, they may only occur when
+          originally building the Trie. Updates may be performed with a complete
+          rebuild.
+        </p>
+        <p>
+          In our implementation, we only use insertions to build the Trie and
+          deletions never at all (we have left an exposed API to tinker around
+          with insertions and deletions).
+        </p>
       </section>
+      <!-- <section>
+        <h2>
+          A Look at Google Chrome
+        </h2>
+        <p>We can use Google Chrome's autocomplete as a gold standard. </p>
+      </section> -->
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>

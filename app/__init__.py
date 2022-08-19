@@ -33,6 +33,8 @@ def live_setup():
     path = Path(__file__).parent.parent.joinpath("search_terms.json")
     with open(path, "r") as f:
         terms = json.loads(f.read())
+        print(len(terms))
+
         for term in terms:
             suffix = term["term"]
             trie.insert(suffix)

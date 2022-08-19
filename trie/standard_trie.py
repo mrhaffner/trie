@@ -164,7 +164,7 @@ class StandardTrie(AbstractTrie):
         if suffixes is None:
             suffixes = []
 
-        # do not add "" to suffixes
+        # do not add "" to suffixes if _root
         if node.is_suffix_end and node != self._root:
             suffixes.append(suffix)
 

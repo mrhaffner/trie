@@ -76,22 +76,6 @@ class WeightedTrie(StandardTrie):
             return True
 
 
-    def _get_node_from_str(self, word: str) -> WeightedTrieNode:
-        cur_node = self._root
-
-        for char in word:
-            if not self._is_valid_suffix(word):
-                return None
-                
-            hash_code = self._hash_char(char)
-            cur_node = cur_node.edges[hash_code]
-
-            if cur_node is None:
-                return cur_node
-
-        return cur_node
-
-
     def delete(self, suffix: str) -> bool:
         # cannot delete empty string
         if suffix == "":
@@ -125,7 +109,7 @@ class WeightedTrie(StandardTrie):
         if suffixes is None:
             suffixes = []
 
-        # do not add "" to suffixes
+        # do not add "" to suffixes if _root
         if node.weight > 0 and node != self._root:
             suffixes.append({"suffix": suffix, "weight": node.weight})
 

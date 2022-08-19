@@ -141,9 +141,8 @@
           that we are trying to get suggestions for. "H" represents the height
           of the subtree we are trying to get suggestions from. This is the
           length of the longest suffix in the subtree. "C" represents the
-          character set the Trie supports. "N" represents the number of paths
-          from the root node of our subtree to all of its leaves. "N" is not the
-          same as the number of suffixes in the subtree as suffixes may overlap.
+          character set the Trie supports. "N" represents the number of suffixes
+          in the subtree.
         </p>
         <p>
           In our implementation, all of the variables are constants. We will
@@ -158,7 +157,8 @@
           27. "N" is also technically limited by the max height of the trie.
           Deletions and insertions are done in O(S) time. "S" is the length of
           the suffix which is at most the max height of the Trie. This become
-          O(1).
+          O(1). We choose to delete nodes by marking them as not being the end
+          of a suffix. This will increase speed at the cost of extra memory.
         </p>
         <p>
           The main drawback of the Trie is the large amount of memory that is

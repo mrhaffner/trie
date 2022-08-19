@@ -38,7 +38,7 @@ class CachedTrie(WeightedTrie):
 
 
     def insert(self, suffix_dict: SuffixEntry) -> bool:
-        """"""
+        """Inserting a suffix will update the cache for all effected nodes"""
         if super().insert(suffix_dict) == False:
             return False
 
@@ -59,7 +59,7 @@ class CachedTrie(WeightedTrie):
 
 
     def delete(self, suffix: str) -> bool:
-        """"""
+        """Deleting a suffix will update the cache for all effected nodes"""
         if super().delete(suffix) == False:
             return False
 
@@ -83,7 +83,6 @@ class CachedTrie(WeightedTrie):
 
 
     def get_suffixes(self, prefix: str = "") -> List[str]:
-        """"""
         node = self._get_node_from_str(prefix)
         
         if node is None:

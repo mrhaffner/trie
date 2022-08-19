@@ -59,3 +59,12 @@ class TestStandardTrieInsertAndContains(TestCachedTrieParent):
         for entry in suffix_dicts:
             trie.insert(entry)
         self.assertEqual(trie.get_suffixes(), ["c", "b"])
+
+
+    def test_updates_cache_on_duplicate_insert(self) -> None:
+        trie = CachedTrie(3)
+        suffix_dicts = [{"suffix": "a", "weight": 1}, {"suffix": "b", "weight": 2}, 
+                        {"suffix": "a", "weight": 3}]
+        for entry in suffix_dicts:
+            trie.insert(entry)
+        self.assertEqual(trie.get_suffixes(), ["a", "b"])

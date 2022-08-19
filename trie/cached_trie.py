@@ -39,39 +39,23 @@ class CachedTrie(WeightedTrie):
 
     def insert(self, suffix_dict: SuffixEntry) -> bool:
         """"""
-        suffix = suffix_dict["suffix"]
-        weight = suffix_dict["weight"]
-
-        if not self._is_valid_suffix(suffix):
+        if super().insert(suffix_dict) == False:
             return False
-        
+
         cur_node = self._root
 
-        for char in suffix:
-            self._update_cache(cur_node, suffix, weight)
-            suffix = suffix[1:]
+        for char in suffix_dict["suffix"]:
+            new_cache = self._get_suffixes_from_node(cur_node)
+            new_cache.sort(reverse=True, key=lambda d: d["weight"])
+            if len(new_cache) > self._limit:
+                new_cache = new_cache[:self._limit]
+            
+            cur_node.cache = new_cache
+
             hash_code = self._hash_char(char)
-
-            # create new node if char not in trie
-            if not cur_node.edges[hash_code]:
-                cur_node.edges[hash_code] = self._create_node()
-
             cur_node = cur_node.edges[hash_code]
 
-        # mark the end of the suffix
-        cur_node.weight = weight
-        self._update_cache(cur_node, suffix, weight)
-
         return True
-
-
-    def _update_cache(self, node: CachedTrieNode, suffix: str, weight: int) -> None:
-        """"""
-        suffix_dict: SuffixEntry = {"suffix": suffix, "weight": weight}
-        node.cache.append(suffix_dict)
-        node.cache.sort(reverse=True, key=lambda d: d["weight"])
-        if len(node.cache) > self._limit:
-            node.cache = node.cache[:self._limit]
 
 
     def delete(self, suffix: str) -> bool:

@@ -121,27 +121,3 @@ class TestReverseHashChar(TestCachedTrieParent):
             self.trie._reverse_hash_char(-1)
         with self.assertRaises(ValueError):
             self.trie._reverse_hash_char(27)
-
-
-class TestUpdateCache(unittest.TestCase):
-
-    def test_adds_to_empty_cache(self) -> None:
-        trie = CachedTrie(3)
-        trie._update_cache(trie._root, "matt", 1)
-        self.assertEqual(trie._root.cache, [{"suffix": "matt", "weight": 1}])
-
-
-    def test_sorts_cache(self) -> None:
-        trie = CachedTrie(3)
-        trie._update_cache(trie._root, "matt", 1)
-        trie._update_cache(trie._root, "steve", 2)
-        expected = [{"suffix": "steve", "weight": 2}, {"suffix": "matt", "weight": 1}]
-        self.assertEqual(trie._root.cache, expected)
-
-
-    def test_truncates_cache_past_limit(self) -> None:
-        trie = CachedTrie(1)
-        trie._update_cache(trie._root, "matt", 1)
-        trie._update_cache(trie._root, "steve", 2)
-        expected = [{"suffix": "steve", "weight": 2}]
-        self.assertEqual(trie._root.cache, expected)

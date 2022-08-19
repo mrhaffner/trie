@@ -1,16 +1,16 @@
 (() => {
-  // const apiTrieUri =
-  //   'http://127.0.0.1:5000/api/trie/suggestions?limit=10&prefix=';
-  // const apiWeightedUri =
-  //   'http://127.0.0.1:5000/api/weighted-trie/suggestions?limit=10&prefix=';
-  // const apiCachedUri =
-  //   'http://127.0.0.1:5000/api/cached-trie/suggestions?limit=10&prefix=';
   const apiTrieUri =
-    'http://mrhaffner.pythonanywhere.com/api/trie/suggestions?limit=10&prefix=';
+    'http://127.0.0.1:5000/api/trie/suggestions?limit=10&prefix=';
   const apiWeightedUri =
-    'http://mrhaffner.pythonanywhere.com/api/weighted-trie/suggestions?limit=10&prefix=';
+    'http://127.0.0.1:5000/api/weighted-trie/suggestions?limit=10&prefix=';
   const apiCachedUri =
-    'http://mrhaffner.pythonanywhere.com/api/cached-trie/suggestions?limit=10&prefix=';
+    'http://127.0.0.1:5000/api/cached-trie/suggestions?limit=10&prefix=';
+  // const apiTrieUri =
+  //   'http://mrhaffner.pythonanywhere.com/api/trie/suggestions?limit=10&prefix=';
+  // const apiWeightedUri =
+  //   'http://mrhaffner.pythonanywhere.com/api/weighted-trie/suggestions?limit=10&prefix=';
+  // const apiCachedUri =
+  //   'http://mrhaffner.pythonanywhere.com/api/cached-trie/suggestions?limit=10&prefix=';
 
   const arrayToSuggestionsLIs = (suggestions) => {
     return suggestions.map((suggestion) => {

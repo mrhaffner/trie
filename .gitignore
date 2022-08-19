@@ -1,11 +1,11 @@
 __pycache__
+.coverage
+.pyc
+coverage
 env
 node_modules
-.coverage
-coverage
-.pyc
-
 notes.txt
+original_pics
+search_terms.json
 scraper.py
 scraped_pages
-search_terms.json

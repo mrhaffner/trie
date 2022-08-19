@@ -306,13 +306,130 @@
           deletions never at all (we have left an exposed API to tinker around
           with insertions and deletions).
         </p>
+        <p>
+          In a real life system, the trie acts as an efficient interface to get
+          search results. You would not use the trie itself to store searches in
+          real time. A history of all searches, the number of times they were
+          searched, and other data would be stored seperately. Based on this
+          data, you could filter out innapropriate suggestions, calculate
+          weights, and then build your trie. The trie itself could be stored in
+          an in-memory database like Redis.
+        </p>
       </section>
-      <!-- <section>
-        <h2>
-          A Look at Google Chrome
-        </h2>
-        <p>We can use Google Chrome's autocomplete as a gold standard. </p>
-      </section> -->
+      <section>
+        <h2>A Study of Google Autocomplete</h2>
+        <p>
+          We can use Google as a gold standard for a websearch autocomplete. Let
+          us look at the results of a few different searches from different
+          starting conditions.
+        </p>
+        <p>
+          With a clear search history and not logged into a Google account we
+          click on the searchbar:
+        </p>
+        <div class="image-container search-img-container">
+          <img
+            src="{{ url_for('static', filename='blank-no-history.jpg') }}"
+            alt="Google trending search results"
+          />
+          <figcaption>Trending searches</figcaption>
+        </div>
+        <p>
+          With no history to draw from, Google decideds to show us the current
+          trending search results. This brings up a question on search weight.
+          How does Google actually calculate the weight of a suggestion? We used
+          hits in our implementaion, but Google likely includes trending data
+          when calculating weight.
+        </p>
+        <p>
+          Now we click on the searchbar with a history of typing "app" into the
+          searchbar:
+        </p>
+        <div class="image-container search-img-container">
+          <img
+            src="{{ url_for('static', filename='blank-with-history.jpg') }}"
+            alt="Google search results with history"
+          />
+          <figcaption>Searches based on history without input</figcaption>
+        </div>
+        <p>
+          Our suggestions are now based on our previous search. Notice the
+          results are not based purely on the prefix "app", but appear to based
+          on what people clicked on after searching for "app".
+        </p>
+        <p>
+          We now look at what happens when we type "app" into search without
+          being logged in:
+        </p>
+        <div class="image-container search-img-container">
+          <img
+            src="{{ url_for('static', filename='app-original.jpg') }}"
+            alt="Google search results for 'app'"
+          />
+          <figcaption>Search results for "app"</figcaption>
+        </div>
+        <p>
+          These search results look a lot more familiar to our implementation.
+          The one difference is the results are based on location. Does Google
+          keep a different search set for every city? Probably not. Google most
+          certainly has different data sets for different regions, but likely
+          not at the city level. Notice that the city results appear right after
+          "near me". The city data is probably being added after getting the
+          first set of search suggestions.
+        </p>
+        <p>
+          What happens when we type in a prefix with no matching suffixes? Let's
+          try "appp":
+        </p>
+        <div class="image-container search-img-container">
+          <img
+            src="{{ url_for('static', filename='appp.jpg') }}"
+            alt="Google search results for 'appp'"
+          />
+          <figcaption>Search results for "appp"</figcaption>
+        </div>
+        <p>
+          The results are the same as for "app". This shows a new feature of the
+          trie: spellchecking. In this case, we navigate down to the node
+          representing the last "p" in "appp". This node has no valid suffixes.
+          So, we use the suffixes of the closest ancestor node with valid
+          suffixes.
+        </p>
+        <p>
+          Spellchecking is best accomplished with a cached trie. If we were to
+          use a non-cached trie, we would need to generate a list of valid
+          suffixes at every character node in the prefix.
+        </p>
+        <p>
+          Let us now look at the result of searching for "app" while logged into
+          a Google account with previous search history.
+        </p>
+        <div class="image-container search-img-container">
+          <img
+            src="{{ url_for('static', filename='app-logged-in.jpg') }}"
+            alt="Google search results for 'app' while logged in"
+          />
+          <figcaption>Search results for "app" while logged in</figcaption>
+        </div>
+        <p>
+          You will notice a few changes here. Google now appends a list of our
+          previous searches that match the prefix. This could be handled with a
+          seperate trie for our search history. This trie could be weighted
+          based on how long ago the searches were made. We would want to include
+          recent searches, but probably not searches from 5 years ago.
+        </p>
+        <p>
+          The other results are also different. This is likely due to a
+          differing search history. Again, suggesting that our history is part
+          of the weight calculation. This could potentially be done with a per
+          user trie.
+        </p>
+        <p>
+          So does Google use the Trie for its autocomplete? I have no idea. What
+          I can tell you is that the there is a lot more going on under the hood
+          than our simple implementation.
+        </p>
+      </section>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>

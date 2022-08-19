@@ -236,6 +236,33 @@
           to improve performance? Stay tuned to find out!
         </p>
       </section>
+      <section>
+        <div class="search-container">
+          <form id="trie-cached-form">
+            <div id="trie-cached-search-bar" class="search-bar">
+              <input
+                id="cached-search-input"
+                class="search"
+                maxlength="200"
+                type="text"
+                name="search"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+                title="Search"
+                value=""
+              />
+            </div>
+            <div id="cached-suggestions" class="auto-complete" hidden>
+              <div class="auto-line"></div>
+            </div>
+          </form>
+          <figcaption>
+            Try me! (<b>Warning:</b> Some suggestions are NSFW)
+          </figcaption>
+        </div>
+      </section>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>

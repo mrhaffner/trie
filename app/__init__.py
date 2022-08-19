@@ -3,12 +3,14 @@ import json
 from flask import Flask
 from flask_cors import CORS
 from pathlib import Path
+from trie.cached_trie import CachedTrie
 from trie.standard_trie import StandardTrie
 from trie.weighted_trie import WeightedTrie
 
 # Our databases
 trie = StandardTrie(200)
 weighted_trie = WeightedTrie(200)
+cached_trie = CachedTrie(10, 200)
 
 
 def functional_testing_setup():
@@ -23,6 +25,7 @@ def functional_testing_setup():
     suffixes_weighted += [{"suffix": ("z" * i), "weight": 1} for i in range(2, 16)]
     for suffix in suffixes_weighted:
         weighted_trie.insert(suffix)
+        cached_trie.insert(suffix)
 
 
 def live_setup():
@@ -35,6 +38,7 @@ def live_setup():
             trie.insert(suffix)
             weighted_entry = {"suffix": suffix, "weight": int(term["hits"])}
             weighted_trie.insert(weighted_entry)
+            cached_trie.insert(weighted_entry)
 
 
 def create_app(live_server = True):

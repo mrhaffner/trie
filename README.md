@@ -50,7 +50,7 @@ $ mv path/to/your/unzipped/chromedriver /usr/local/bin
 $ xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 ```
 
-For the functional tests to work, the Flask app will need to be running in debug mode. You will also need to change the "apiUri" in script.js by commenting the live uri and uncommenting the test uri.
+For the functional tests to work, the Flask app will need to be running in debug mode. You will also need to change the "baseUri" in script.js by commenting the live uri and uncommenting the test uri. For the routes tests to work, the last line of the app/\_\_init\_\_.py will need to be commented out.
 
 Run the Python tests:
 

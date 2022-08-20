@@ -30,10 +30,10 @@ def functional_testing_setup():
 
 def live_setup():
     """Adds all suffixes from search_terms.json to the tries"""
+    print("hi hi hi")
     path = Path(__file__).parent.parent.joinpath("search_terms.json")
     with open(path, "r") as f:
         terms = json.loads(f.read())
-        print(len(terms))
 
         for term in terms:
             suffix = term["term"]
@@ -66,4 +66,6 @@ def create_app(live_server = True):
 
     return app
 
+
+# for pythonanywhere
 app = create_app()

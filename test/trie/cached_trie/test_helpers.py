@@ -1,6 +1,7 @@
 import unittest
 from test.trie.cached_trie.test_creation import TestCachedTrieParent, TestCachedTrieParentWithSuffixes
 from trie.cached_trie import CachedTrie
+from trie.weighted_trie import SuffixEntry
 
 
 class TestWeightedCreateNode(TestCachedTrieParent):
@@ -121,3 +122,46 @@ class TestReverseHashChar(TestCachedTrieParent):
             self.trie._reverse_hash_char(-1)
         with self.assertRaises(ValueError):
             self.trie._reverse_hash_char(27)
+
+
+class TestUpdateCache(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.trie = CachedTrie(2)
+        self.suffix_dicts = [{"suffix": "app", "weight": 1}, {"suffix": "apple", "weight": 4}, 
+                              {"suffix": "apple orchard", "weight": 1}]
+        self.cache = self.trie._root.cache
+
+    def test_removes_duplicate(self) -> None:
+        self.cache.append(self.suffix_dicts[0])
+        suffix = self.suffix_dicts[0]["suffix"]
+        weight = self.suffix_dicts[0]["weight"]
+        self.trie._update_cache(self.cache, suffix, weight)
+        self.assertEqual(1, len(self.cache))        
+
+
+    def test_adds_suffix_entry(self) -> None:
+        suffix = self.suffix_dicts[0]["suffix"]
+        weight = self.suffix_dicts[0]["weight"]
+        self.trie._update_cache(self.cache, suffix, weight)
+        self.assertEqual(1, len(self.cache))   
+        self.assertTrue("suffix" in self.cache[0])
+        self.assertTrue("weight" in self.cache[0])
+
+
+    def test_sorts_by_weight(self) -> None:
+        suffix1 = self.suffix_dicts[0]["suffix"]
+        weight1 = self.suffix_dicts[0]["weight"]
+        suffix2 = self.suffix_dicts[1]["suffix"]
+        weight2 = self.suffix_dicts[1]["weight"]
+        self.trie._update_cache(self.cache, suffix1, weight1)
+        self.trie._update_cache(self.cache, suffix2, weight2)
+        self.assertEqual(self.cache[1]["suffix"], suffix1)
+        self.assertEqual(self.cache[1]["weight"], weight1)
+
+
+    def test_trims_size_to_limit(self) -> None:
+        for d in self.suffix_dicts:
+            self.trie._update_cache(self.cache, d["suffix"], d["weight"])
+        self.assertEqual(2, len(self.cache))   
+

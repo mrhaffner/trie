@@ -2,11 +2,9 @@
 
 Exploring and optimizing search suggestions with Trie (Prefix Tree)
 
-Version 3.0.0 is live:
+Version 3.1.0 is live:
 
 http://mrhaffner.pythonanywhere.com/
-
-Further releases will include optimization of the search suggestions engine with explanations. I also plan to refactor the script.js file because it is terrible.
 
 ## Purpose
 

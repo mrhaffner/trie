@@ -69,9 +69,7 @@
             A word in the Trie is indicated by following a path from the root to
             a node that is marked as being the end of a word. The location of a
             child node on its parent node's edges is used to determine what
-            character the child node represents with a hash function. A null
-            pointer indicates no children exist in the Trie for that given
-            character.
+            character the child node represents with a hash function.
           </p>
           <p>
             Due to the large number of edges, representing a Trie visually can
@@ -136,46 +134,38 @@
           </figcaption>
         </div>
         <p>
-          This implementation is efficient. Suggestions are found in
-          O(P+H&times;C&times;N) time. "P" represents the length of the prefix
-          that we are trying to get suggestions for. "H" represents the height
-          of the subtree we are trying to get suggestions from. This is the
-          length of the longest suffix in the subtree. "C" represents the
-          character set the Trie supports. "N" represents the number of suffixes
-          in the subtree.
+          This implementation is efficient. Suggestions are found in O(H+N)
+          time. "H" represents the height of the Trie - ie the longest prefix we
+          can find suggestions for. "N" represents the number of nodes in your
+          subtree which has a maximum size equal to the number of nodes in your
+          Trie. "H" can never be higher than "N", so the complexity is O(N).
         </p>
         <p>
-          In our implementation, all of the variables are constants. We will
-          however, give big O notations as if they were not. It is not neccesary
-          to support strings of a potentially unlimited length. Most searches
-          are short, so we can set a reasonable max height for our Trie. In our
-          implementation, we chose 200 for the max length of a word in the Trie.
-          This max length limits length of "P" and "H".
+          The maximum size of a Trie is (C<sup>(H+1)</sup>-1)/(C-1). "C" is the
+          size of our character set: 26 English letters + 1 space character =
+          27. It is not neccesary to support strings of a potentially unlimited
+          length. Most searches are short, so we can set a reasonable max height
+          for our Trie. In our implementation, we chose 200.
         </p>
         <p>
-          Our character set, "C", is 26 English letters + 1 space character =
-          27. "N" is also technically limited by the max height of the trie.
-          Deletions and insertions are done in O(S) time. "S" is the length of
-          the suffix which is at most the max height of the Trie. This become
-          O(1). We choose to delete nodes by marking them as not being the end
-          of a suffix. This will increase speed at the cost of extra memory.
+          The maximum size of our Trie is 1.9&times;10<sup>286</sup> nodes. That
+          is a very large constant. Without a fixed height or character set, the
+          size of a Trie is O(C<sup>H</sup>). Memory usage is the main drawback
+          of the Trie - due to the typically large number of null pointers found
+          in each node's edges array.
         </p>
         <p>
-          The main drawback of the Trie is the large amount of memory that is
-          used. Every node has a number of children equal to the size of the
-          character set. Generally, most of the children of a given node will be
-          null pointers. The maximum size of a Trie is
-          (C<sup>(H+1)</sup>-1)/(C-1). For our implementation, C=27 and H=200
-          which gives us a maximum size of 1.9&times;10<sup>286</sup> nodes.
-          That is a very large constant. Without a fixed height or character
-          set, the size of a Trie is O(C<sup>H</sup>).
+          In our implementation, "N" is also a constant so finding a list of
+          valid suffixes for a prefix actually happens in O(1) time. Deletions
+          and insertions are done in O(H) time. Again, this become O(1). We
+          choose to delete nodes by marking them as not being the end of a
+          suffix. This will increase speed at the cost of extra memory.
         </p>
         <p>
-          The Trie will find all suggestions for our given prefix. We will need
-          to limit the suggestions we show. One feature of the Trie is that all
-          suggestions will be ouput in alphabetical order. Alphabetical order is
-          not likely the most relevant. But how do we choose which suggestions
-          to show?
+          The Trie will find all suggestions for our given prefix. One feature
+          of the Trie is that all suggestions will be ouput in alphabetical
+          order. Alphabetical order is not likely the most relevant. But how do
+          we choose which suggestions to show?
         </p>
       </section>
       <section>
@@ -219,26 +209,25 @@
         </div>
         <p>
           We see that suggestions are now sorted in descending order based on
-          weight. This Weighted Trie acts almost identically to the original
-          Trie, except now results will be sorted.
+          weight. Sorting our suggestions does slow down retrieval.
         </p>
         <p>
-          Sorting our suggestions does slow down retrieval. We use Timsort - the
-          default sorting algorithm in Python. Timsort is a good choice because
-          the algorithm is stable. This means that it will automatically keep
-          the previously existing alphabetical ordering after sorting by weight
-          for items of equal weight.
+          We use Timsort - the default sorting algorithm in Python. Timsort is a
+          good choice because the algorithm is stable. This means that it will
+          automatically keep the previously existing alphabetical ordering after
+          sorting by weight for items of equal weight.
         </p>
         <p>
-          Timsort operates in O(N&times;log(N)) time. "N" represents the number
+          Timsort operates in O(S&times;log(S)) time. "S" represents the number
           of suffixes that match our prefix. The number of suffixes found is
           limited by the maximum number of nodes that our Trie may contain. The
-          preformance hit is well worth the benefit of drastically enhanced user
-          experience.
+          maximum number of suffixes in a Trie is actually "N" - imagine a Trie
+          where every node is marked as the the end of a valid suffix.
         </p>
         <p>
-          Now that our Trie is showing more relevant suggestions, what can we do
-          to improve performance?
+          The small performance hit is well worth the benefit of drastically
+          enhanced user experience. Now that our Trie is showing more relevant
+          suggestions, what can we do to improve performance?
         </p>
       </section>
       <section>
@@ -249,7 +238,10 @@
           performance by generating a cache of suggestions for every node in the
           Trie.
         </p>
-        <p>Suggestions are now found in O(S) time. Try our new search bar:</p>
+        <p>
+          Suggestions are now found in O(H) time - ie the maximum length of a
+          suffix. Try our new search bar:
+        </p>
         <div class="search-container">
           <form id="trie-cached-form">
             <div id="trie-cached-search-bar" class="search-bar">
@@ -277,36 +269,48 @@
         </div>
         <p>
           Creating a cache for every node will amplify memory use. Fortunately,
-          it is not neccesary to store a potentially unlimited sized cache. This
-          increases our memory usage by a small constant: "L".
+          it is not neccesary to store a cache of potentially unlimited sized.
+          This increases our memory usage by a small constant: "L".
         </p>
         <p>
           Caching also creates a performance trade off. Insertions and deletions
           from the Trie will now need to update the cache for every affected
-          node. For every character in the suffix, we will need to gather all
-          valid suffixes, sort and truncate them. What took place in O(S) time
-          now takes O(S&times;H&times;C&times;N&times;L&times;log(L)) time. This
-          represents a significant performance hit.
+          node.
         </p>
         <p>
-          Insertions and deletions will generally be rare outside of building
-          the Trie. Depending on your implementation, they may only occur when
-          originally building the Trie. Updates may be performed with a complete
+          For every character in the suffix, we will need to gather all valid
+          suffixes, sort and truncate them. What took place in O(H) time now
+          takes O(H&times;N&times;L&times;log(L)) time. Building our Trie this
+          way takes 173 seconds - that is 1,700 times slower than the Weighted
+          Trie!
+        </p>
+        <p>
+          We can do better for insertion. For every affected node, we check for
+          a duplicate suffix and delete that if it exists. We then add the new
+          entry to the cache and sort it by weight. The cache entries will no
+          longer be sorted by suffix as a secondary sorting criteria. This is
+          fine for our implementation. We then truncate the cache if it exceeds
+          the size limit. That leaves us with O(H&times;L&times;log(L) - much
+          faster.
+        </p>
+        <p>
+          Unfortunately, we are stuck with the slow performance for delete.
+          Deletions affecting nodes with a full cache will require a complete
           rebuild.
         </p>
         <p>
-          In our implementation, we only use insertions to build the Trie and
-          deletions never at all (we have left an exposed API to tinker around
-          with insertions and deletions).
+          Fortunately, deletions will generally be rare if they happen at all.
+          Updates may be performed with a complete rebuild. In our
+          implementation, we only use insertions to build the Trie and deletions
+          never at all.
         </p>
       </section>
       <section>
         <h2>Performance</h2>
         <p>
           We discussed how we could improve performance with caching. Let's look
-          at some some live measurements. We populate our tries with 5,334
-          scraped top search results. Several trials give the following
-          averages:
+          at some some measurements. We populate our Tries with 5,334 scraped
+          top search results. Several trials give the following averages:
         </p>
         <table>
           <caption>
@@ -337,14 +341,14 @@
             <td>Cached</td>
             <td>5.2</td>
             <td>54,000</td>
-            <td>56,000</td>
-            <td>1.7&times;10<sup>8</sup></td>
+            <td>29</td>
+            <td>340,000</td>
           </tr>
         </table>
         <p>
-          We ended up reducing our retrieval time by 99% with caching. That
-          imrpovement came at the cost of memory and performance. Building the
-          cached trie was 1,700 times slower!
+          We ended up reducing our retrieval time by over 99% with caching.
+          That's 163 times faster! That improvement came at the cost of memory
+          and insertion/deletion performance.
         </p>
       </section>
       <section>
@@ -421,7 +425,7 @@
         </div>
         <p>
           The results are the same as for "app". This shows a new feature of the
-          trie: spellchecking. In this case, we navigate down to the node
+          Trie: spellchecking. In this case, we navigate down to the node
           representing the last "p" in "appp". This node has no valid suffixes.
           So, we use the suffixes of the closest ancestor node with valid
           suffixes.
@@ -453,29 +457,24 @@
           The other results are also different. This is likely due to a
           differing search history. Again, suggesting that our history is part
           of the weight calculation. This could potentially be done with a per
-          user trie.
-        </p>
-        <p>
-          So does Google use the Trie for its autocomplete? I have no idea. What
-          I can tell you is that the there is a lot more going on under the hood
-          than our simple implementation.
+          user Trie.
         </p>
       </section>
       <section>
         <h2>Conclusion</h2>
         <p>
-          The trie acts as an efficient interface to get search results. A trie
+          The Trie acts as an efficient interface to get search results. A trie
           is not the best option for general purpose storage. In a live search
           engine, a seperate database should be used to store history of all
           searches, the number of times they were searched, and other data.
           Based on this data, you could filter out innapropriate suggestions,
-          calculate weights, and then build a trie for consumption.
+          calculate weights, and then build a Trie for consumption.
         </p>
         <p>
           To keep this project simple and take advantage of free hosting, a real
           database was not used. All data is stored in memory by the running
           Flask application. A better solution would be to use an in memory
-          database like Redis to store the tries.
+          database like Redis to store the Tries.
         </p>
         <p>
           We covered only a few variations of the Trie. There are many more with
@@ -487,8 +486,7 @@
           <a
             href="https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF/"
             >System Design Interview by Alex Xu</a
-          >
-          . My goal for reading the book was to get a good overview of how
+          >. My goal for reading the book was to get a good overview of how
           highly scalable applications run. I got that and tons of great project
           ideas.
         </p>

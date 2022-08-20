@@ -43,19 +43,39 @@ class CachedTrie(WeightedTrie):
             return False
 
         cur_node = self._root
+        suffix = suffix_dict["suffix"]
+        weight = suffix_dict["weight"]
 
         for char in suffix_dict["suffix"]:
-            new_cache = self._get_suffixes_from_node(cur_node)
-            new_cache.sort(reverse=True, key=lambda d: d["weight"])
-            if len(new_cache) > self._limit:
-                new_cache = new_cache[:self._limit]
-            
-            cur_node.cache = new_cache
+            self._update_cache(cur_node.cache, suffix, weight)
 
             hash_code = self._hash_char(char)
             cur_node = cur_node.edges[hash_code]
+            suffix = suffix[1:]
+        
+        # update the final node
+        self._update_cache(cur_node.cache, suffix, weight)
 
         return True
+
+
+    def _update_cache(self, cache: List[SuffixEntry], suffix: str, weight: int) -> None:
+        """Updates the cache for a CachedTrieNode with a new SuffixEntry """
+        # remove duplicate suffix
+        for i in range(len(cache)):
+            if cache[i]["suffix"] == suffix:
+                cache.pop(i)
+                break
+
+        # add the new SuffixEntry
+        suff_dict: SuffixEntry = {"suffix": suffix, "weight": weight}
+        cache.append(suff_dict)
+        # sort ascending by weight
+        cache.sort(reverse=True, key=lambda d: d["weight"])
+
+        # trim the cache to the max limit
+        if len(cache) > self._limit:
+            cache.pop()
 
 
     def delete(self, suffix: str) -> bool:

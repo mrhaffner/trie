@@ -297,6 +297,14 @@ ul > * {
   margin-bottom: 10px;
 }
 
+.browser-table {
+  display: table;
+}
+
+.mobile-table {
+  display: none;
+}
+
 .search-bar {
   background-color: white;
   padding: 8px 0;
@@ -348,12 +356,20 @@ ul > * {
 
   td,
   th {
-    padding: 8px;
+    padding: 8px 6px;
   }
 
   #content-wrapper {
     margin: 0 24px;
     max-width: none;
+  }
+
+  .browser-table {
+    display: none;
+  }
+
+  .mobile-table {
+    display: table;
   }
 
   .search-container {

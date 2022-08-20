@@ -129,9 +129,7 @@
               <div class="auto-line"></div>
             </div>
           </form>
-          <figcaption>
-            Try me! (<b>Warning:</b> Some suggestions are NSFW)
-          </figcaption>
+          <figcaption>Try me! (Some suggestions are NSFW)</figcaption>
         </div>
         <p>
           This implementation is efficient. Suggestions are found in O(H+N)
@@ -203,9 +201,7 @@
               <div class="auto-line"></div>
             </div>
           </form>
-          <figcaption>
-            Try me! (<b>Warning:</b> Some suggestions are NSFW)
-          </figcaption>
+          <figcaption>Try me! (Some suggestions are NSFW)</figcaption>
         </div>
         <p>
           We see that suggestions are now sorted in descending order based on
@@ -263,9 +259,7 @@
               <div class="auto-line"></div>
             </div>
           </form>
-          <figcaption>
-            Try me! (<b>Warning:</b> Some suggestions are NSFW)
-          </figcaption>
+          <figcaption>Try me! (Some suggestions are NSFW)</figcaption>
         </div>
         <p>
           Creating a cache for every node will amplify memory use. Fortunately,
@@ -312,9 +306,9 @@
           at some some measurements. We populate our Tries with 5,334 scraped
           top search results. Several trials give the following averages:
         </p>
-        <table>
+        <table class="browser-table">
           <caption>
-            Trie Performance in Microseconds
+            Speed in Microseconds
           </caption>
           <tr>
             <th>Trie Type</th>
@@ -341,6 +335,53 @@
             <td>Cached</td>
             <td>5.2</td>
             <td>54,000</td>
+            <td>29</td>
+            <td>340,000</td>
+          </tr>
+        </table>
+        <table class="mobile-table">
+          <caption>
+            Speed in Microseconds
+          </caption>
+          <tr>
+            <th>Trie Type</th>
+            <th>Get Suffixes</th>
+            <th>Delete</th>
+          </tr>
+          <tr>
+            <td>Standard</td>
+            <td>800</td>
+            <td>23</td>
+          </tr>
+          <tr>
+            <td>Weighted</td>
+            <td>850</td>
+            <td>23</td>
+          </tr>
+          <tr>
+            <td>Cached</td>
+            <td>5.2</td>
+            <td>54,000</td>
+          </tr>
+        </table>
+        <table class="mobile-table">
+          <tr>
+            <th>Trie Type</th>
+            <th>Single Insert</th>
+            <th>Insert All</th>
+          </tr>
+          <tr>
+            <td>Standard</td>
+            <td>7.4</td>
+            <td>80,000</td>
+          </tr>
+          <tr>
+            <td>Weighted</td>
+            <td>7.7</td>
+            <td>100,000</td>
+          </tr>
+          <tr>
+            <td>Cached</td>
             <td>29</td>
             <td>340,000</td>
           </tr>

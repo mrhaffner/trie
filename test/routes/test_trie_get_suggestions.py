@@ -66,7 +66,6 @@ class TestWeightedTrieGet(TestWeightedApiParent):
 
     def test_trie_get_all(self) -> None:
         expected = ["dog", "apple", "app", "apple orchard"]
-        expected += ["z" * i for i in range(2, 16)]
         response = self.client.get(TestWeightedTrieGet.BASE_URL)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, expected)
@@ -127,8 +126,6 @@ class TestCachedTrieGet(TestCachedApiParent):
 
     def test_trie_get_all(self) -> None:
         expected = ["dog", "apple", "app", "apple orchard"]
-        expected += ["z" * i for i in range(2, 16)]
-        expected = expected[:10]
         response = self.client.get(TestCachedTrieGet.BASE_URL)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, expected)

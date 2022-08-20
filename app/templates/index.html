@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -146,11 +146,11 @@
         </p>
         <p>
           In our implementation, all of the variables are constants. We will
-          however, give big O notations as if they weren not. It is not
-          neccesary to support strings of a potentially unlimited length. Most
-          searches are short, so we can set a reasonable max height for our
-          Trie. In our implementation, we chose 200 for the max length of a word
-          in the Trie. This max length limits length of "P" and "H".
+          however, give big O notations as if they were not. It is not neccesary
+          to support strings of a potentially unlimited length. Most searches
+          are short, so we can set a reasonable max height for our Trie. In our
+          implementation, we chose 200 for the max length of a word in the Trie.
+          This max length limits length of "P" and "H".
         </p>
         <p>
           Our character set, "C", is 26 English letters + 1 space character =
@@ -289,13 +289,6 @@
           represents a significant performance hit.
         </p>
         <p>
-          To give you an idea of the performance hit. We insert 5,334 scraped
-          suggestions into all three Tries. The original Trie takes 0.08 seconds
-          to insert all entries. The Weighted Trie takes 0.10 seconds. While I
-          am writing this, I am still waiting on the Cached Trie to finish...
-          The Cached Trie took 173.57 seconds. That is 1735.7 times slower!
-        </p>
-        <p>
           Insertions and deletions will generally be rare outside of building
           the Trie. Depending on your implementation, they may only occur when
           originally building the Trie. Updates may be performed with a complete
@@ -306,14 +299,52 @@
           deletions never at all (we have left an exposed API to tinker around
           with insertions and deletions).
         </p>
+      </section>
+      <section>
+        <h2>Performance</h2>
         <p>
-          In a real life system, the trie acts as an efficient interface to get
-          search results. You would not use the trie itself to store searches in
-          real time. A history of all searches, the number of times they were
-          searched, and other data would be stored seperately. Based on this
-          data, you could filter out innapropriate suggestions, calculate
-          weights, and then build your trie. The trie itself could be stored in
-          an in-memory database like Redis.
+          We discussed how we could improve performance with caching. Let's look
+          at some some live measurements. We populate our tries with 5,334
+          scraped top search results. Several trials give the following
+          averages:
+        </p>
+        <table>
+          <caption>
+            Trie Performance in Microseconds
+          </caption>
+          <tr>
+            <th>Trie Type</th>
+            <th>Get Suffixes</th>
+            <th>Delete</th>
+            <th>Single Insert</th>
+            <th>Insert All</th>
+          </tr>
+          <tr>
+            <td>Standard</td>
+            <td>800</td>
+            <td>23</td>
+            <td>7.4</td>
+            <td>80,000</td>
+          </tr>
+          <tr>
+            <td>Weighted</td>
+            <td>850</td>
+            <td>23</td>
+            <td>7.7</td>
+            <td>100,000</td>
+          </tr>
+          <tr>
+            <td>Cached</td>
+            <td>5.2</td>
+            <td>54,000</td>
+            <td>56,000</td>
+            <td>1.7&times;10<sup>8</sup></td>
+          </tr>
+        </table>
+        <p>
+          We ended up reducing our retrieval time by 99% with caching. That
+          imrpovement came at the cost of memory and performance. Building the
+          cached trie was 1,700 times slower!
         </p>
       </section>
       <section>
@@ -430,7 +461,45 @@
           than our simple implementation.
         </p>
       </section>
+      <section>
+        <h2>Conclusion</h2>
+        <p>
+          The trie acts as an efficient interface to get search results. A trie
+          is not the best option for general purpose storage. In a live search
+          engine, a seperate database should be used to store history of all
+          searches, the number of times they were searched, and other data.
+          Based on this data, you could filter out innapropriate suggestions,
+          calculate weights, and then build a trie for consumption.
+        </p>
+        <p>
+          To keep this project simple and take advantage of free hosting, a real
+          database was not used. All data is stored in memory by the running
+          Flask application. A better solution would be to use an in memory
+          database like Redis to store the tries.
+        </p>
+        <p>
+          We covered only a few variations of the Trie. There are many more with
+          their own unique properties. For instance, a Compressed Trie can be
+          used to cut down on the large memory usage of a standard Trie.
+        </p>
+        <p>
+          I got the idea for this project from
+          <a
+            href="https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF/"
+            >System Design Interview by Alex Xu</a
+          >
+          . My goal for reading the book was to get a good overview of how
+          highly scalable applications run. I got that and tons of great project
+          ideas.
+        </p>
+        <p>
+          Thanks for reading! I had a lot of fun making this project. To check
+          out the project code, please visit the
+          <a href="https://github.com/mrhaffner/trie">Github Repository</a>.
+        </p>
+      </section>
     </div>
+    <footer><p>&copy; 2022 Matt Haffner</p></footer>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>
 </html>

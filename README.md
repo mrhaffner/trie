@@ -1,6 +1,6 @@
 ## The Trie Project
 
-Exploring and optimizing search suggestions with Trie (Prefix Tree)
+Implementing autocomplete and optimizing search suggestions with Trie (Prefix Tree)
 
 Version 3.1.0 is live:
 
@@ -11,6 +11,14 @@ http://mrhaffner.pythonanywhere.com/
 - Practice Test Driven Development (TDD)
 - Gain experience optimizing search performance
 - Learn the ins and outs of the Trie
+
+## Overview
+
+- Several Trie implementations to optimize autocomplete
+- Flask RESTish API to manipulate different in memory Trie "databases"
+- Flask Web View with searchbar implementations & discussions
+- Testing with unittest
+- Functional Tests with Selenium
 
 ## Instructions
 
@@ -68,3 +76,10 @@ $ coverage html
 ## Acknowledgements
 
 I got the idea for this project from System Design Interview by Alex Xu. I read the book to get a good overview of how highly scalable systems operate and was not disappointed.
+
+## Potential Improvements
+
+- Improved documentation / style for script.js
+- Unit tests for script.js
+- Improved code reuse and documentation for tests
+- Docomentation for RESTish API

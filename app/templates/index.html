@@ -61,9 +61,17 @@
         <div>
           <p>
             Selecting an efficient method to find autocomplete suggestions
-            presents a unique challenge. This challenge is efficiently handled
-            with a Trie a.k.a. Prefix Tree. A Trie is a specialized tree where
-            each child node represents a character.
+            presents a unique challenge. For a given prefix, we need to find all
+            valid suffixes. This challenge is efficiently handled with a Trie
+            a.k.a. Prefix Tree. A Trie is a specialized tree where each child
+            node represents a character.
+          </p>
+          <p>
+            A naive approach would be to store an array of valid words, search
+            for every word that matches our prefix, and then copy the suffix of
+            those words. This would take O(M&times;N) time where M is the length
+            of the list of words (long!) and N is the length of the longest word
+            in the array. We will see that our Trie does much better than this.
           </p>
           <p>
             A word in the Trie is indicated by following a path from the root to
@@ -390,6 +398,12 @@
           We ended up reducing our retrieval time by over 99% with caching.
           That's 163 times faster! That improvement came at the cost of memory
           and insertion/deletion performance.
+        </p>
+        <p>
+          Our double loop naive implementation from the introduction took 1,600
+          microseconds to get all suffixes. Even a non-cached Trie is twice as
+          fast! Our dataset is small. The larger the dataset, the worse the
+          naive approach will due relative to the Trie.
         </p>
       </section>
       <section>

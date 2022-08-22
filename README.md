@@ -82,4 +82,4 @@ I got the idea for this project from System Design Interview by Alex Xu. I read 
 - Improved documentation / style for script.js
 - Unit tests for script.js
 - Improved code reuse and documentation for tests
-- Docomentation for RESTish API
+- Documentation for RESTish API

@@ -1,4 +1,6 @@
 (() => {
+  // Hello, this good is terrible.  Maybe I will fix it at some point in the future.
+
   // swap these for testing
   const baseUri = 'http://mrhaffner.pythonanywhere.com/api/';
   // const baseUri = 'http://127.0.0.1:5000/api/';
